@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sangwookim.repository.BoardMapper">
+
+    <select id="getList" resultType="com.sangwookim.domain.BoardVO">
+		select * from board_table where board_info_id = #{board_info_id} order by id desc
+	</select>
+
+<!--    <select id="getListPaging" resultType="com.sangwookim.domain.BoardVO">-->
+<!--		select * from board_table where board_info_id = #{board_info_id} order by id desc limit #{cri.start}, #{cri.amount}-->
+<!--	</select>-->
+
+    <select id="getListPaging" resultType="com.sangwookim.domain.BoardVO">
+        select * from board_table where board_info_id = #{board_info_id}
+        <choose>
+			<when test="cri.type == 'TC'.toString()">
+				and (title like concat('%',#{cri.keyword},'%') or content like concat_ws('%',#{cri.keyword},'%'))
+			</when>
+            <when test="cri.type == 'T'.toString()">
+                and title like concat('%',#{cri.keyword},'%')
+            </when>
+            <when test="cri.type == 'W'.toString()">
+                and writer like concat('%',#{cri.keyword},'%')
+            </when>
+        </choose>
+		limit #{cri.start}, #{cri.amount}
+    </select>
+
+
+    <insert id="insert">
+		insert into board_table (board_info_id, title, content, writer)
+		values(#{board_info_id}, #{title}, #{content}, #{writer})
+	</insert>
+
+    <!--	<insert id="insertSelectKey">-->
+    <!--		<selectKey keyProperty="id" order="BEFORE" resultType="long">-->
+    <!--			select LAST_INSERT_ID()-->
+    <!--		</selectKey>-->
+    <!--		insert into board_table(id, board_info_id, title, content, writer)-->
+    <!--		values (#{id}, #{board_info_id}, #{title}, #{content},#{writer})-->
+    <!--	</insert>-->
+
+
+    <!--	<select id="read" resultType="com.sangwookim.domain.BoardVO">-->
+    <!--		select * from board_table  where id = #{id}-->
+    <!--	</select>-->
+
+    <select id="read" resultType="com.sangwookim.domain.BoardVO">
+		select * from board_table  where id = #{id} and board_info_id = ${board_info_id}
+	</select>
+
+    <select id="getBoardInfoName" resultType="String">
+		select name from board_info_table
+		where id = #{id}
+	</select>
+
+    <delete id="delete">
+		delete from board_table where id = #{id}
+	</delete>
+
+    <update id="update">
+		update board_table
+		set title= #{title},
+		content=#{content},
+		writer = #{writer}
+		where id = #{id}
+	</update>
+
+    <select id="getBoardTotal" resultType="int">
+		select count(*) from board_table where board_info_id = #{board_info_id}
+	</select>
+
+    <!--    cdata는 부등호 처리를 위해서 사용-->
+</mapper>

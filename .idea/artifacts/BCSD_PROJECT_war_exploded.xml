@@ -1,0 +1,55 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="BCSD_PROJECT:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/BCSD_PROJECT_war_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="BCSD_PROJECT/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="BCSD_PROJECT" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.10.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.module:jackson-module-jaxb-annotations:2.10.2" />
+          <element id="library" level="project" name="Maven: com.fasterxml.woodstox:woodstox-core:6.0.3" />
+          <element id="library" level="project" name="Maven: commons-dbcp:commons-dbcp:1.4" />
+          <element id="library" level="project" name="Maven: commons-pool:commons-pool:1.5.4" />
+          <element id="library" level="project" name="Maven: jakarta.activation:jakarta.activation-api:1.2.1" />
+          <element id="library" level="project" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.2" />
+          <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
+          <element id="library" level="project" name="Maven: log4j:log4j:1.2.17" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.31" />
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjweaver:1.9.5" />
+          <element id="library" level="project" name="Maven: org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4:1.16" />
+          <element id="library" level="project" name="Maven: org.codehaus.woodstox:stax2-api:4.2" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:1.2.0" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.2.2" />
+          <element id="library" level="project" name="Maven: org.slf4j:jcl-over-slf4j:1.6.6" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.6.6" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-log4j12:1.6.6" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-acl:3.2.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:3.2.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:3.2.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-taglibs:3.2.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:3.2.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-test:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
+          <element id="library" level="project" name="Spring-3.2.18.RELEASE" />
+          <element id="library" level="project" name="Spring MVC-3.2.18.RELEASE" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

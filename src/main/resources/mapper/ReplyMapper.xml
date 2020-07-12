@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sangwookim.repository.ReplyMapper">
+
+    <select id="read" resultType="com.sangwookim.domain.ReplyVO">
+		select * from reply_table where id = #{id}
+	</select>
+
+    <select id="getList" resultType="com.sangwookim.domain.ReplyVO">
+        select * from reply_table where board_id = #{board_id}
+    </select>
+
+    <insert id="insert">
+        insert into reply_table (board_id, content, writer)
+        values(#{board_id}, #{content}, #{writer})
+    </insert>
+
+    <delete id="delete">
+        delete from reply_table where id = #{id}
+    </delete>
+
+    <update id="update">
+        update reply_table
+        set content=#{content}
+        where id = #{id}
+    </update>
+
+<!--    <select id="getListPaging" resultType="com.sangwookim.domain.ReplyVO">-->
+<!--    		select * from reply_table where board_id = #{board_id} limit #{cri.start}, #{cri.amount}-->
+<!--    	</select>-->
+
+    <select id="getListPaging" resultType="com.sangwookim.domain.ReplyVO">
+    		select * from reply_table where board_id = #{board_id} order by if(isnull(parent), id, parent) limit #{cri.start}, #{cri.amount}
+    	</select>
+
+
+    <select id="getTotalReply" resultType="int">
+        select count(id) from reply_table where board_id = #{board_id}
+    </select>
+</mapper>

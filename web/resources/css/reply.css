@@ -1,0 +1,17 @@
+.reply-list{
+    list-style: none;
+    padding-left: 0px;
+    margin-bottom: 0px;
+}
+.reply-item{
+    border-bottom:1px solid darkgray;
+    margin-bottom: 15px;
+}
+
+.comment-item{
+    padding-left: 40px;
+}
+
+.reply-box{
+
+}
