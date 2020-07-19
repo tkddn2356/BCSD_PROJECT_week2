@@ -11,6 +11,7 @@
         <module name="BCSD_PROJECT5" />
         <module name="BCSD_PROJECT4" />
         <module name="BCSD_PROJECT3" />
+        <module name="BCSD_PROJECT_week2" />
       </profile>
     </annotationProcessing>
   </component>
