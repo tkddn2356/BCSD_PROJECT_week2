@@ -1,8 +1,10 @@
 package com.sangwookim.service;
 
-import com.sangwookim.domain.BoardVO;
+import com.sangwookim.domain.Board;
 import com.sangwookim.domain.Criteria;
+import com.sangwookim.domain.Page;
 import com.sangwookim.repository.BoardMapper;
+import com.sangwookim.repository.ReplyMapper;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,8 +17,9 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private BoardMapper mapper;
 
+
     @Override
-    public void write(BoardVO board) {
+    public void write(Board board) {
         log.info("write....." + board);
         mapper.insert(board);
     }
@@ -28,16 +31,16 @@ public class BoardServiceImpl implements BoardService {
 //    }
 
     @Override
-    public List<BoardVO> getList(Long board_info_id) {
+    public List<Board> getList(String category) {
         log.info("getList.....");
-        return mapper.getList(board_info_id);
+        return mapper.getList(category);
     }
 
     @Override
-    public List<BoardVO> getListPaging(Criteria cri, Long board_info_id)
+    public List<Board> getListPaging(Criteria cri, String category)
     {
         log.info("getListPaging");
-        return mapper.getListPaging(cri, board_info_id);
+        return mapper.getListPaging(cri, category);
     }
 
     //    @Override
@@ -46,19 +49,14 @@ public class BoardServiceImpl implements BoardService {
 //        return mapper.read(id);
 //    }
     @Override
-    public BoardVO read(BoardVO board) {
-        log.info("read...." + board);
-        return mapper.read(board);
+    public Board read(Long id) {
+        log.info("read...." + id);
+        return mapper.read(id);
     }
 
-    @Override
-    public String getBoardInfoName(Long board_info_idx) {
-        log.info("board_info_id...." + board_info_idx);
-        return mapper.getBoardInfoName(board_info_idx);
-    }
 
     @Override
-    public boolean modify(BoardVO board) {
+    public boolean modify(Board board) {
         log.info("modify......" + board);
         return mapper.update(board) == 1;
     }
@@ -70,9 +68,36 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public int getBoardTotal(Long board_info_id)
+    public int getBoardTotal(String category)
     {
         log.info("getBoardTotal....");
-        return mapper.getBoardTotal(board_info_id);
+        return mapper.getBoardTotal(category);
     }
+
+    @Override
+    public Page getBoardPage(Criteria cri, String category) {
+        int total = mapper.getBoardTotal(category);
+        return new Page(cri, total);
+    }
+
+    @Override
+    public int getHitTotal(Long id) {
+        return mapper.getHit(id);
+    }
+
+    @Override
+    public int getHit_notTotal(Long id) {
+        return mapper.getHit_not(id);
+    }
+
+    @Override
+    public void updateHit(Long id) {
+        mapper.updateHit(id, 1);
+    }
+
+    @Override
+    public void updateHit_not(Long id) {
+        mapper.updateHit_not(id, 1);
+    }
+
 }

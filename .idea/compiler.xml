@@ -8,6 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="BCSD_PROJECT" />
+        <module name="BCSD_PROJECT5" />
+        <module name="BCSD_PROJECT4" />
+        <module name="BCSD_PROJECT3" />
       </profile>
     </annotationProcessing>
   </component>

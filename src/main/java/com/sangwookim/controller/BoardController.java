@@ -1,107 +1,82 @@
 package com.sangwookim.controller;
 
-import com.sangwookim.domain.BoardVO;
+import com.sangwookim.domain.Board;
 import com.sangwookim.domain.Criteria;
-import com.sangwookim.domain.PageDTO;
+import com.sangwookim.domain.Page;
 import com.sangwookim.service.BoardService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Log4j
-@RequestMapping("/board/*")
+@RequestMapping("/board/")
 public class BoardController {
 
     @Autowired
     private BoardService service;
 
-    //    @RequestMapping(value = "/list", method = RequestMethod.GET)
-//    public String list(@RequestParam("board_info_id") Long board_info_id, Model model) {
-//
-//        String board_info_name = service.getBoardInfoName(board_info_id);
-//        model.addAttribute("board_info_name", board_info_name);
-//        model.addAttribute("board_info_id", board_info_id);
-//        log.info("boardInfoName = " + board_info_name);
-//
-//        log.info("list");
-//        model.addAttribute("list", service.getList(board_info_id));
-//        return "board/list";
-//    }
+
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(@RequestParam("board_info_id") Long board_info_id, Criteria cri, Model model) {
+    public String list(@RequestParam("category") String category, Criteria cri, Model model) {
         cri.setStart();
-        String board_info_name = service.getBoardInfoName(board_info_id);
-        model.addAttribute("board_info_name", board_info_name);
-        model.addAttribute("board_info_id", board_info_id);
-        log.info("boardInfoName = " + board_info_name);
+        model.addAttribute("category", category);
+        model.addAttribute("list", service.getListPaging(cri, category));
+        model.addAttribute("boardPage", service.getBoardPage(cri, category));
+        log.info("category = " + category);
         log.info("cri = " + cri.getPageNum() + ", " + cri.getAmount());
         log.info("list");
-        int total = service.getBoardTotal(board_info_id);
-        model.addAttribute("list", service.getListPaging(cri, board_info_id));
-        model.addAttribute("page", new PageDTO(cri, total));
-        log.info("total = " + total);
         return "board/list";
     }
 
     @RequestMapping(value = "/write", method = RequestMethod.GET)
-    public String write(@RequestParam("board_info_id") Long board_info_id, Model model) {
-        String board_info_name = service.getBoardInfoName(board_info_id);
-        model.addAttribute("board_info_name", board_info_name);
-        model.addAttribute("board_info_id", board_info_id);
+    public String write(@RequestParam("category") String category, Model model) {
+        model.addAttribute("category", category);
         return "board/write";
     }
 
     @RequestMapping(value = "/write", method = RequestMethod.POST)
-    public String write(BoardVO board, RedirectAttributes rttr) {
+    public String write_pro(Board board, RedirectAttributes rttr) {
         log.info("write: " + board);
         service.write(board);
-        rttr.addAttribute("board_info_id", board.getBoard_info_id());
-        rttr.addFlashAttribute("result", board.getTitle());
+        rttr.addAttribute("category", board.getCategory());
         return "redirect:/board/list";
     }
 
-    //    @RequestMapping(value = "/read",  method = RequestMethod.GET)
-//    public String read(@RequestParam("board_info_id") Long board_info_id, @RequestParam("id") Long id, Model model) {
-//        log.info("/read");
-//        String board_info_name = service.getBoardInfoName(board_info_id);
-//        model.addAttribute("board_info_name", board_info_name);
-//        model.addAttribute("board_info_id", board_info_id);
+//    @RequestMapping(value = "/read", method = RequestMethod.GET)
+//    public String read(@RequestParam("id") Long id, Model model) {
 //        model.addAttribute("board", service.read(id));
 //        return "board/read";
 //    }
+
     @RequestMapping(value = "/read", method = RequestMethod.GET)
-    public String read(BoardVO board, Criteria cri, Model model) {
+    public String read(@RequestParam("category")String category, @RequestParam("id") Long id, Criteria cri, Model model) {
         log.info("/read");
-        Long board_info_id = board.getBoard_info_id();
-        String board_info_name = service.getBoardInfoName(board_info_id);
-        model.addAttribute("board_info_name", board_info_name);
-        model.addAttribute("board", service.read(board));
+        model.addAttribute("category", category);
+        model.addAttribute("board", service.read(id));
         model.addAttribute("cri", cri);
         return "board/read";
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.GET)
-    public String modify(BoardVO board, Criteria cri, Model model) {
+    public String modify(@RequestParam("category")String category, @RequestParam("id") Long id, Criteria cri, Model model) {
         log.info("/modify");
-        Long board_info_id = board.getBoard_info_id();
-        String board_info_name = service.getBoardInfoName(board_info_id);
-        model.addAttribute("board_info_name", board_info_name);
-        model.addAttribute("board", service.read(board));
+        model.addAttribute("category", category);
+        model.addAttribute("board", service.read(id));
         model.addAttribute("cri", cri);
         return "board/modify";
     }
 
     @RequestMapping(value = "/modify", method = RequestMethod.POST)
-    public String modify(BoardVO board, Criteria cri, Model model, RedirectAttributes rttr) {
+    public String modify(Board board, Criteria cri, RedirectAttributes rttr) {
         log.info("/modify");
         service.modify(board);
-        rttr.addAttribute("board_info_id", board.getBoard_info_id());
+        rttr.addAttribute("category", board.getCategory());
         rttr.addAttribute("id", board.getId());
         rttr.addAttribute("pageNum", cri.getPageNum());
         rttr.addAttribute("amount", cri.getAmount());
@@ -111,15 +86,43 @@ public class BoardController {
     }
 
     @RequestMapping(value = "/remove", method = RequestMethod.POST)
-    public String remove(@RequestParam("id") Long id, @RequestParam("board_info_id") Long board_info_id, Criteria cri, RedirectAttributes rttr) {
+    public String remove(@RequestParam("category") String category, @RequestParam("id") Long id, Criteria cri, RedirectAttributes rttr) {
         log.info("/remove");
         service.remove(id);
-        rttr.addAttribute("board_info_id", board_info_id);
+        rttr.addAttribute("category", category);
         rttr.addAttribute("pageNum", cri.getPageNum());
         rttr.addAttribute("amount", cri.getAmount());
         rttr.addAttribute("type", cri.getType());
         rttr.addAttribute("keyword", cri.getKeyword());
         return "redirect:/board/list";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/hit/{id}", method = RequestMethod.PATCH,
+            consumes = "application/json")
+    public ResponseEntity<String> updateHit(@PathVariable("id")Long id){
+        service.updateHit(id);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/hit_not/{id}", method = RequestMethod.PATCH,
+            consumes = "application/json")
+    public ResponseEntity<String> updateHit_not(@PathVariable("id")Long id){
+        service.updateHit_not(id);
+        return new ResponseEntity<>("success", HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/hit/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> getHit(@PathVariable("id")Long id){
+        return new ResponseEntity<>(service.getHitTotal(id), HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/hit_not/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Integer> getHit_not(@PathVariable("id")Long id){
+        return new ResponseEntity<>(service.getHit_notTotal(id), HttpStatus.OK);
     }
 
 

@@ -4,16 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sangwookim.repository.BoardMapper">
 
-    <select id="getList" resultType="com.sangwookim.domain.BoardVO">
-		select * from board_table where board_info_id = #{board_info_id} order by id desc
+    <select id="getList" resultType="com.sangwookim.domain.Board">
+		select * from board_table where category = #{catogory} order by id desc
 	</select>
 
 <!--    <select id="getListPaging" resultType="com.sangwookim.domain.BoardVO">-->
 <!--		select * from board_table where board_info_id = #{board_info_id} order by id desc limit #{cri.start}, #{cri.amount}-->
 <!--	</select>-->
 
-    <select id="getListPaging" resultType="com.sangwookim.domain.BoardVO">
-        select * from board_table where board_info_id = #{board_info_id}
+    <select id="getListPaging" resultType="com.sangwookim.domain.Board">
+        select * from board_table where category = #{category} order by id desc
         <choose>
 			<when test="cri.type == 'TC'.toString()">
 				and (title like concat('%',#{cri.keyword},'%') or content like concat_ws('%',#{cri.keyword},'%'))
@@ -30,8 +30,8 @@
 
 
     <insert id="insert">
-		insert into board_table (board_info_id, title, content, writer)
-		values(#{board_info_id}, #{title}, #{content}, #{writer})
+		insert into board_table (category, title, content, writer, user_id)
+		values(#{category}, #{title}, #{content}, #{writer}, #{user_id})
 	</insert>
 
     <!--	<insert id="insertSelectKey">-->
@@ -47,14 +47,10 @@
     <!--		select * from board_table  where id = #{id}-->
     <!--	</select>-->
 
-    <select id="read" resultType="com.sangwookim.domain.BoardVO">
-		select * from board_table  where id = #{id} and board_info_id = ${board_info_id}
+    <select id="read" resultType="com.sangwookim.domain.Board">
+		select * from board_table  where id = #{id}
 	</select>
 
-    <select id="getBoardInfoName" resultType="String">
-		select name from board_info_table
-		where id = #{id}
-	</select>
 
     <delete id="delete">
 		delete from board_table where id = #{id}
@@ -69,7 +65,25 @@
 	</update>
 
     <select id="getBoardTotal" resultType="int">
-		select count(*) from board_table where board_info_id = #{board_info_id}
+		select count(*) from board_table where category = #{category}
+	</select>
+
+	<update id="updateReplyCount">
+		update board_table set reply_count = reply_count + #{amount} where id = #{id}
+	</update>
+
+	<update id="updateHit">
+		update board_table set hit = hit + #{amount} where id = #{id}
+	</update>
+	<update id="updateHit_not">
+		update board_table set hit_not = hit_not + #{amount} where id = #{id}
+	</update>
+
+	<select id="getHit" resultType="int">
+		select hit from board_table where id = #{id}
+	</select>
+	<select id="getHit_not" resultType="int">
+		select hit_not from board_table where id = #{id}
 	</select>
 
     <!--    cdata는 부등호 처리를 위해서 사용-->

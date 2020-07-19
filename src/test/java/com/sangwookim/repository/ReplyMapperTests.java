@@ -1,7 +1,7 @@
 package com.sangwookim.repository;
 
 import com.sangwookim.domain.Criteria;
-import com.sangwookim.domain.ReplyVO;
+import com.sangwookim.domain.Reply;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,7 +45,7 @@ public class ReplyMapperTests {
 
     @Test
     public void TestUpdate() {
-        ReplyVO reply = new ReplyVO();
+        Reply reply = new Reply();
         reply.setContent("수정한 댓글");
         reply.setId(3L);
         mapper.update(reply);

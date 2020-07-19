@@ -4,7 +4,6 @@ public class Criteria {
     private int pageNum;
     private int amount;
     private int start;
-
     private String type;
     private String keyword;
 
@@ -17,8 +16,6 @@ public class Criteria {
         this.amount = amount;
         this.start = (pageNum-1) * amount;
     }
-
-
 
     public int getPageNum() {
         return pageNum;

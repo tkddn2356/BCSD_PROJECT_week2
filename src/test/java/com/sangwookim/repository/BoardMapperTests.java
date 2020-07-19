@@ -1,7 +1,7 @@
 package com.sangwookim.repository;
 
 
-import com.sangwookim.domain.BoardVO;
+import com.sangwookim.domain.Board;
 import com.sangwookim.domain.Criteria;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -21,7 +21,7 @@ public class BoardMapperTests {
 
     @Test
     public void testGetList() {
-        mapper.getList(1L).forEach(board -> log.info(board));
+        mapper.getList("자유게시판").forEach(board -> log.info(board));
     }
 
 //    @Test
@@ -76,16 +76,18 @@ public class BoardMapperTests {
 //        Criteria cri = new Criteria();
 //        mapper.getListPaging(cri, 1L).forEach(board -> log.info(board));
 //    }
-    @Test
-    public void testGetListPaging(){
-        Criteria cri = new Criteria();
-        cri.setType("TC");
-        cri.setKeyword("테스트");
-        mapper.getListPaging(cri, 1L).forEach(board -> log.info(board));
-    }
 
-    @Test
-    public void testGetBoardTotal(){
-        mapper.getBoardTotal(1L);
-    }
+
+//    @Test
+//    public void testGetListPaging(){
+//        Criteria cri = new Criteria();
+//        cri.setType("TC");
+//        cri.setKeyword("테스트");
+//        mapper.getListPaging(cri, "자유게시판").forEach(board -> log.info(board));
+
+//    }
+//    @Test
+//    public void testGetBoardTotal(){
+//        mapper.getBoardTotal(1L);
+//    }
 }

@@ -1,21 +1,30 @@
 package com.sangwookim.service;
 
-import com.sangwookim.domain.BoardVO;
+import com.sangwookim.domain.Board;
 import com.sangwookim.domain.Criteria;
+import com.sangwookim.domain.Page;
 
 import java.util.List;
 
 public interface BoardService {
 
-    public List<BoardVO> getList(Long board_info_id);
-    public List<BoardVO> getListPaging(Criteria cri, Long board_info_id);
-    public void write(BoardVO board);
+    public List<Board> getList(String category);
+    public List<Board> getListPaging(Criteria cri, String category);
+    public void write(Board board);
 //    public BoardVO read(Long id);
-    public BoardVO read(BoardVO board);
-    public String getBoardInfoName(Long board_info_idx);
-    public boolean modify(BoardVO board);
+    public Board read(Long id);
+    public boolean modify(Board board);
     public boolean remove(Long id);
-    public int getBoardTotal(Long board_info_id);
+    public int getBoardTotal(String category);
+
+    public Page getBoardPage(Criteria cri, String category);
+
+
+    public int getHitTotal(Long id);
+    public int getHit_notTotal(Long id);
+
+    public void updateHit(Long id);
+    public void updateHit_not(Long id);
 
 
 }

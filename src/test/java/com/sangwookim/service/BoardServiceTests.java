@@ -1,7 +1,7 @@
 package com.sangwookim.service;
 
 
-import com.sangwookim.domain.BoardVO;
+import com.sangwookim.domain.Board;
 import com.sangwookim.domain.Criteria;
 import lombok.extern.log4j.Log4j;
 import org.junit.Test;
@@ -30,22 +30,22 @@ public class BoardServiceTests {
 //		service.register(board);
 //	}
 
-    @Test
-    public void testGetList() {
-        service.getList(1L).forEach(board->log.info(board));
-    }
-
-    @Test
-    public void testGetListPaging() {
-
-//		service.getList().forEach(board -> log.info(board));
-        service.getListPaging(new Criteria(2, 10), 1L).forEach(board -> log.info(board));
-    }
-
-    @Test
-    public void testGetBoardTotal() {
-        service.getBoardTotal(1L);
-
-    }
+//    @Test
+//    public void testGetList() {
+//        service.getList(1L).forEach(board->log.info(board));
+//    }
+//
+//    @Test
+//    public void testGetListPaging() {
+//
+////		service.getList().forEach(board -> log.info(board));
+//        service.getListPaging(new Criteria(2, 10), 1L).forEach(board -> log.info(board));
+//    }
+//
+//    @Test
+//    public void testGetBoardTotal() {
+//        service.getBoardTotal(1L);
+//
+//    }
 
 }

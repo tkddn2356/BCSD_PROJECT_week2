@@ -16,9 +16,9 @@
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
 
-<!--    <tx:annotation-driven proxy-target-class="true"/>-->
-<!--    <bean id="transactionManager"-->
-<!--          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
-<!--        <property name="dataSource" ref="dataSource"/>-->
-<!--    </bean>-->
+    <tx:annotation-driven proxy-target-class="true"/>
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 </beans>

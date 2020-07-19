@@ -2,10 +2,9 @@
   <artifact type="exploded-war" name="BCSD_PROJECT:war exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/BCSD_PROJECT_war_exploded</output-path>
     <root id="root">
-      <element id="javaee-facet-resources" facet="BCSD_PROJECT/web/Web" />
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
-          <element id="module-output" name="BCSD_PROJECT" />
+          <element id="module-output" name="BCSD_PROJECT5" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
@@ -48,8 +47,12 @@
           <element id="library" level="project" name="Maven: taglibs:standard:1.1.2" />
           <element id="library" level="project" name="Spring-3.2.18.RELEASE" />
           <element id="library" level="project" name="Spring MVC-3.2.18.RELEASE" />
+          <element id="library" level="project" name="Maven: javax.validation:validation-api:1.0.0.GA" />
+          <element id="library" level="project" name="Maven: org.hibernate:hibernate-validator:4.2.0.Final" />
+          <element id="library" level="project" name="Maven: org.mindrot:jbcrypt:0.4" />
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="BCSD_PROJECT5/web/Web" />
     </root>
   </artifact>
 </component>

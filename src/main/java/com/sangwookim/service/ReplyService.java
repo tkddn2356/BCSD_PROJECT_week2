@@ -1,17 +1,20 @@
 package com.sangwookim.service;
 
+import com.sangwookim.domain.Page;
 import com.sangwookim.domain.Criteria;
-import com.sangwookim.domain.ReplyPageDTO;
-import com.sangwookim.domain.ReplyVO;
+import com.sangwookim.domain.Reply;
 
 import java.util.List;
 
 public interface ReplyService {
-    public int register(ReplyVO reply);
-    public ReplyVO read(Long id);
-    public int modify(ReplyVO reply);
+    public int register(Reply reply);
+    public Reply read(Long id);
+    public int modify(Reply reply);
     public int remove(Long id);
-    public List<ReplyVO> getList(Criteria cri, Long board_id);
+//    public List<Reply> getList(Criteria cri, Long board_id);
+    public List<Reply> getList(int page, Long board_id);
     public int getTotalReply(Long board_id);
-    public ReplyPageDTO getListPaging(Criteria cri, Long board_id);
+//    public ReplyPage getListPaging(Criteria cri, Long board_id);
+
+    public Page getReplyPage(int page, Long board_id);
 }
