@@ -9,8 +9,8 @@ import java.util.List;
 
 @Repository
 public interface BoardMapper {
-    public List<Board> getList(String category);
-    public List<Board> getListPaging(@Param("cri")Criteria cri, @Param("category")String category);
+//    public List<Board> getList(String category);
+    public List<Board> getList(@Param("cri")Criteria cri, @Param("category")String category);
     public void insert(Board board);
     public Board read(Long id);
     public int delete(Long id);

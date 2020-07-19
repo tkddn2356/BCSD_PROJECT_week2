@@ -2,9 +2,8 @@ package com.sangwookim.service;
 
 import com.sangwookim.domain.Board;
 import com.sangwookim.domain.Criteria;
-import com.sangwookim.domain.Page;
+import com.sangwookim.domain.Paging;
 import com.sangwookim.repository.BoardMapper;
-import com.sangwookim.repository.ReplyMapper;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,17 +30,18 @@ public class BoardServiceImpl implements BoardService {
 //    }
 
     @Override
-    public List<Board> getList(String category) {
+    public List<Board> getList(Criteria cri, String category) {
         log.info("getList.....");
-        return mapper.getList(category);
+        cri.setStart();
+        return mapper.getList(cri, category);
     }
 
-    @Override
-    public List<Board> getListPaging(Criteria cri, String category)
-    {
-        log.info("getListPaging");
-        return mapper.getListPaging(cri, category);
-    }
+//    @Override
+//    public List<Board> getListPaging(Criteria cri, String category)
+//    {
+//        log.info("getListPaging");
+//        return mapper.getListPaging(cri, category);
+//    }
 
     //    @Override
 //    public BoardVO read(Long id) {
@@ -75,9 +75,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Page getBoardPage(Criteria cri, String category) {
+    public Paging getBoardPage(Criteria cri, String category) {
         int total = mapper.getBoardTotal(category);
-        return new Page(cri, total);
+        return new Paging(cri, total);
     }
 
     @Override

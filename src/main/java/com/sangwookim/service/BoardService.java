@@ -2,14 +2,14 @@ package com.sangwookim.service;
 
 import com.sangwookim.domain.Board;
 import com.sangwookim.domain.Criteria;
-import com.sangwookim.domain.Page;
+import com.sangwookim.domain.Paging;
 
 import java.util.List;
 
 public interface BoardService {
 
-    public List<Board> getList(String category);
-    public List<Board> getListPaging(Criteria cri, String category);
+    public List<Board> getList(Criteria cri, String category);
+//    public List<Board> getListPaging(Criteria cri, String category);
     public void write(Board board);
 //    public BoardVO read(Long id);
     public Board read(Long id);
@@ -17,7 +17,7 @@ public interface BoardService {
     public boolean remove(Long id);
     public int getBoardTotal(String category);
 
-    public Page getBoardPage(Criteria cri, String category);
+    public Paging getBoardPage(Criteria cri, String category);
 
 
     public int getHitTotal(Long id);
