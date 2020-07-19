@@ -39,6 +39,12 @@
         <ul class="navbar-nav ml-auto">
             <c:if test="${loginUser.user_login == true}">
                 <li class="nav-item">
+                    <p3 class="navbar" style="color:white">[${loginUser.name}(${loginUser.id})님 안녕하세요!]</p3>
+                </li>
+                <li class="nav-item">
+                    <a href="/message/list?mode=send&user_id=${loginUser.id}" class="nav-link">쪽지함</a>
+                </li>
+                <li class="nav-item">
                     <a href="/user/modify" class="nav-link">정보수정</a>
                 </li>
                 <li class="nav-item">

@@ -34,10 +34,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public int addUser(User user) {
+    public void addUser(User user) {
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashedPassword);
-        return mapper.insert(user);
+        mapper.insert(user);
     }
 
     @Override
