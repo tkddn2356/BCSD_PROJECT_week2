@@ -1,6 +1,6 @@
 package com.sangwookim.service;
 
-import com.sangwookim.domain.Page;
+import com.sangwookim.domain.Paging;
 import com.sangwookim.domain.Criteria;
 import com.sangwookim.domain.Reply;
 import com.sangwookim.repository.BoardMapper;
@@ -72,10 +72,10 @@ public class ReplyServiceImpl implements ReplyService{
 //    }
 
     @Override
-    public Page getReplyPage(int page, Long board_id) {
+    public Paging getReplyPage(int page, Long board_id) {
         Criteria cri = new Criteria(page, 10);
         int total = mapper.getTotalReply(board_id);
-        return new Page(cri, total);
+        return new Paging(cri, total);
     }
 
 }

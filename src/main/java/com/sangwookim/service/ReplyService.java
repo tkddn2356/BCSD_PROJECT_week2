@@ -1,7 +1,6 @@
 package com.sangwookim.service;
 
-import com.sangwookim.domain.Page;
-import com.sangwookim.domain.Criteria;
+import com.sangwookim.domain.Paging;
 import com.sangwookim.domain.Reply;
 
 import java.util.List;
@@ -16,5 +15,5 @@ public interface ReplyService {
     public int getTotalReply(Long board_id);
 //    public ReplyPage getListPaging(Criteria cri, Long board_id);
 
-    public Page getReplyPage(int page, Long board_id);
+    public Paging getReplyPage(int page, Long board_id);
 }

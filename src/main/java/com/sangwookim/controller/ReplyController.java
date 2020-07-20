@@ -1,8 +1,7 @@
 package com.sangwookim.controller;
 
 
-import com.sangwookim.domain.Page;
-import com.sangwookim.domain.Criteria;
+import com.sangwookim.domain.Paging;
 import com.sangwookim.domain.Reply;
 import com.sangwookim.service.ReplyService;
 import lombok.extern.log4j.Log4j;
@@ -68,7 +67,7 @@ public class ReplyController {
 
     @ResponseBody
     @RequestMapping(value = "/page/{board_id}/{page}", method = RequestMethod.GET)
-    public ResponseEntity<Page> getReplyPage(@PathVariable("board_id") Long board_id, @PathVariable("page") int page){
+    public ResponseEntity<Paging> getReplyPage(@PathVariable("board_id") Long board_id, @PathVariable("page") int page){
         return new ResponseEntity<>(service.getReplyPage(page,board_id), HttpStatus.OK);
     }
 }

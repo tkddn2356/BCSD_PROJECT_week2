@@ -1,13 +1,13 @@
 package com.sangwookim.domain;
 
-public class Page {
+public class Paging {
     private int startPage;
     private int endPage;
     private boolean prev, next;
     private Criteria cri;
     private int total;
 
-    public Page(Criteria cri, int total)
+    public Paging(Criteria cri, int total)
     {
         this.cri = cri;
         this.total = total;
