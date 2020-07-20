@@ -49,59 +49,6 @@ public class BoardViewController {
         model.addAttribute("criteria", criteria);
         return "board/modify";
     }
-//
-//    @RequestMapping(value = "/modify", method = RequestMethod.POST)
-//    public String modify(Board board, Criteria cri, RedirectAttributes rttr) {
-//        log.info("/modify");
-//        service.modify(board);
-//        rttr.addAttribute("category", board.getCategory());
-//        rttr.addAttribute("id", board.getId());
-//        rttr.addAttribute("pageNum", cri.getPageNum());
-//        rttr.addAttribute("amount", cri.getAmount());
-//        rttr.addAttribute("type", cri.getType());
-//        rttr.addAttribute("keyword", cri.getKeyword());
-//        return "redirect:/board/read";
-//    }
-//
-//    @RequestMapping(value = "/remove", method = RequestMethod.POST)
-//    public String remove(@RequestParam("category") String category, @RequestParam("id") Long id, Criteria cri, RedirectAttributes rttr) {
-//        log.info("/remove");
-//        service.remove(id);
-//        rttr.addAttribute("category", category);
-//        rttr.addAttribute("pageNum", cri.getPageNum());
-//        rttr.addAttribute("amount", cri.getAmount());
-//        rttr.addAttribute("type", cri.getType());
-//        rttr.addAttribute("keyword", cri.getKeyword());
-//        return "redirect:/board/list";
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(value = "/hit/{id}", method = RequestMethod.PATCH,
-//            consumes = "application/json")
-//    public ResponseEntity<String> updateHit(@PathVariable("id")Long id){
-//        service.updateHit(id);
-//        return new ResponseEntity<>("success", HttpStatus.OK);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(value = "/hit_not/{id}", method = RequestMethod.PATCH,
-//            consumes = "application/json")
-//    public ResponseEntity<String> updateHit_not(@PathVariable("id")Long id){
-//        service.updateHit_not(id);
-//        return new ResponseEntity<>("success", HttpStatus.OK);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(value = "/hit/{id}", method = RequestMethod.GET)
-//    public ResponseEntity<Integer> getHit(@PathVariable("id")Long id){
-//        return new ResponseEntity<>(service.getHitTotal(id), HttpStatus.OK);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(value = "/hit_not/{id}", method = RequestMethod.GET)
-//    public ResponseEntity<Integer> getHit_not(@PathVariable("id")Long id){
-//        return new ResponseEntity<>(service.getHit_notTotal(id), HttpStatus.OK);
-//    }
 
 
 }

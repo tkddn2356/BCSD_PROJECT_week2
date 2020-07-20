@@ -19,8 +19,6 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private UserMapper mapper;
 
-//    @Resource(name = "loginUser")
-//    private User loginUser;
 
     @Override
     public boolean checkUserId(String id) {
@@ -34,10 +32,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void addUser(User user) {
+    public boolean addUser(User user) {
         String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
         user.setPassword(hashedPassword);
-        mapper.insert(user);
+        return mapper.insert(user) ==1;
     }
 
     @Override

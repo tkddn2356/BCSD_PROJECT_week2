@@ -1,4 +1,4 @@
-console.log("reply Module.....");
+console.log("board Module.....");
 var boardService = (function () {
 
     function getList(category, criteria, callback, error) {
