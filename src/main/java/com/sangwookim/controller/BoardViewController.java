@@ -25,11 +25,11 @@ public class BoardViewController {
         return "board/list";
     }
 
-//    @RequestMapping(value = "/write", method = RequestMethod.GET)
-//    public String write(@RequestParam("category") String category, Model model) {
-//        model.addAttribute("category", category);
-//        return "board/write";
-//    }
+    @RequestMapping(value = "/write", method = RequestMethod.GET)
+    public String write(@RequestParam("category") String category, Model model) {
+        model.addAttribute("category", category);
+        return "board/write";
+    }
 //
 //    @RequestMapping(value = "/write", method = RequestMethod.POST)
 //    public String write_pro(Board board, RedirectAttributes rttr) {

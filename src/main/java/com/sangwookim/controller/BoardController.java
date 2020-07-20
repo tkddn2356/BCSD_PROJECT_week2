@@ -3,6 +3,7 @@ package com.sangwookim.controller;
 import com.sangwookim.domain.Board;
 import com.sangwookim.domain.Criteria;
 import com.sangwookim.domain.Paging;
+import com.sangwookim.domain.Reply;
 import com.sangwookim.service.BoardService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,19 @@ public class BoardController {
 
     @ResponseBody
     @RequestMapping(value = "/paging/{category}", method = RequestMethod.POST)
-    public ResponseEntity<Paging> getReplyPage(@RequestBody Criteria cri, @PathVariable("category") String category){
+    public ResponseEntity<Paging> getPaging(@RequestBody Criteria cri, @PathVariable("category") String category){
         return new ResponseEntity<>(service.getBoardPage(cri,category), HttpStatus.OK);
     } // cri의 amount와 category의 총개수를 통해 paging을 구할 수 있다.
+
+    @ResponseBody
+    @RequestMapping(value="/write",  method =  RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> write(@RequestBody Board board){
+        log.info("Board =  " + board);
+        return service.write(board) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+                : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
 
 
 //    @RequestMapping(value = "/list", method = RequestMethod.GET)

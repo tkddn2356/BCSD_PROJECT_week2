@@ -36,7 +36,6 @@
                         <option value="T" <c:out value="${boardPage.cri.type eq 'T'?'selected':''}"/>>제목만</option>
                         <option value="W" <c:out value="${boardPage.cri.type eq 'W'?'selected':''}"/>>글작성자</option>
                     </select>
-                    <input class="form-control mr-2" type="hidden" name="category" value='<c:out value="${category}"/>'>
                     <input class="form-control mr-2" type="text" name="keyword" value='<c:out value="${boardPage.cri.keyword}"/>'>
                     <button class="btn btn-primary mr-2 search-btn" type="submit">찾기</button>
                 </form>

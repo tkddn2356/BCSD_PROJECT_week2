@@ -43,21 +43,25 @@ var boardService = (function () {
         });
     }
 
-    function getPage(param, callback, error) {
-        var board_id = param.board_id;
-        var page = param.pageNum;
-        console.log("board_id = "+ board_id);
-        console.log("page = " + page);
-        $.getJSON("/reply/page/" + board_id + "/" + page,
-            function (data) {
+    function write(board, callback, error) {
+        console.log("add reply......")
+        $.ajax({
+            type: 'post',
+            url: '/board/write',
+            data: JSON.stringify(board),
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
                 if (callback) {
-                    callback(data);
+                    callback(result);
                 }
-            }).fail(function (xhr, status, err) {
-            if (error) {
-                error();
+            },
+            error: function (xhr, status, er) {
+                if (error) {
+                    error(er)
+                }
+                ;
             }
-        });
+        })
     }
 
 
@@ -74,6 +78,7 @@ var boardService = (function () {
     return {
         getList:getList,
         getPaging:getPaging,
+        write:write,
         displayTime:displayTime
     };
 
