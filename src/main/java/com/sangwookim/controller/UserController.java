@@ -35,7 +35,7 @@ public class UserController {
         if(result.hasErrors()) {
             new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return service.addUser(user) ? new ResponseEntity<>("success", HttpStatus.OK) :
+        return service.addUser(user) ? new ResponseEntity<>("success!", HttpStatus.OK) :
                 new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
