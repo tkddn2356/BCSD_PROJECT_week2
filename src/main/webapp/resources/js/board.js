@@ -59,9 +59,40 @@ var boardService = (function () {
                 if (error) {
                     error(er)
                 }
-                ;
             }
-        })
+        });
+    }
+
+    function read(id, callback, error) {
+        $.get("/board/" + id, function (result) {
+            if (callback) {
+                callback(result);
+            }
+        }).fail(function (xhr, status, err) {
+            if (error) {
+                error();
+            }
+        });
+    }
+
+    function modify(id ,board, callback, error) {
+        console.log("id: " + id);
+        $.ajax({
+            type: 'patch',
+            url: '/board/' + id,
+            data: JSON.stringify(board),
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
+                if (callback) {
+                    callback(result);
+                }
+            },
+            error: function (xhr, status, er) {
+                if (error) {
+                    error(er);
+                }
+            }
+        });
     }
 
 
@@ -79,6 +110,8 @@ var boardService = (function () {
         getList:getList,
         getPaging:getPaging,
         write:write,
+        read:read,
+        modify:modify,
         displayTime:displayTime
     };
 

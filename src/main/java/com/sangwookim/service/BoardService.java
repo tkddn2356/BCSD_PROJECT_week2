@@ -10,7 +10,7 @@ public interface BoardService {
 
     public List<Board> getList(Criteria cri, String category);
 //    public List<Board> getListPaging(Criteria cri, String category);
-    public int write(Board board);
+    public boolean write(Board board);
 //    public BoardVO read(Long id);
     public Board read(Long id);
     public boolean modify(Board board);

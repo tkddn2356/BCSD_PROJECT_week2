@@ -25,7 +25,7 @@
                 <a href="/board/write?category=${category}"
                    class="btn btn-primary">글쓰기</a>
             </div>
-            <div class="paging-div">
+            <div class="board-paging">
 <%--                showListPaging()--%>
             </div>
 
@@ -33,13 +33,21 @@
                 <form class="form-inline" id="searchForm" action="/board/list" method="get">
                     <select class="custom-select mr-2"  name="type">
                         <option value="TC" selected>제목 + 내용</option>
-                        <option value="T" <c:out value="${boardPage.cri.type eq 'T'?'selected':''}"/>>제목만</option>
-                        <option value="W" <c:out value="${boardPage.cri.type eq 'W'?'selected':''}"/>>글작성자</option>
+                        <option value="T" <c:out value="${criteria.type eq 'T'?'selected':''}"/>>제목만</option>
+                        <option value="W" <c:out value="${criteria.type eq 'W'?'selected':''}"/>>글작성자</option>
                     </select>
-                    <input class="form-control mr-2" type="text" name="keyword" value='<c:out value="${boardPage.cri.keyword}"/>'>
+                    <input class="form-control mr-2" type="text" name="keyword" value='<c:out value="${criteria.keyword}"/>'>
                     <button class="btn btn-primary mr-2 search-btn" type="submit">찾기</button>
                 </form>
             </div>
+
+            <form id='moveForm' action="/board/read" method="get">
+                <input type='hidden' name='category'>
+                <input type='hidden' name='pageNum'>
+                <input type='hidden' name='amount'>
+                <input type='hidden' name='keyword'>
+                <input type='hidden' name='type'>
+            </form>
         </div>
     </div>
 </div>
@@ -53,7 +61,6 @@
         var amount = ${criteria.amount};
         var type = '${criteria.type}';
         var keyword = '${criteria.keyword}';
-
         var board_tbody = $('.board-tbody');
         showList();
         function showList() {
@@ -69,7 +76,7 @@
                 for (var i = 0, len = list.length; i < len; i++) {
                     str += "<tr>";
                     str += "<td class='text-center d-none d-md-table-cell'>" + list[i].id + "</td>";
-                    str += "<td class='w-50'>" + list[i].title + "</td>";
+                    str += "<td class='w-50 board-title'><a href='"+ list[i].id +"'>" + list[i].title + "</a></td>";
                     str += "<td class='text-center d-none d-md-table-cell'>" + list[i].writer + "</td>";
                     str += "<td class='text-center d-none d-md-table-cell'>" + boardService.displayTime(list[i].created_at) + "</td>";
                     str += "</tr>";
@@ -79,7 +86,7 @@
             });
         }
 
-        var paging_div = $('.paging-div');
+        var paging_div = $('.board-paging');
         function showListPaging() {
             var criteria = {
                 pageNum: pageNum,
@@ -123,32 +130,23 @@
             console.log("keyword = " + keyword);
             showList();
         });
+
+        var moveForm = $("#moveForm");
+        $(document).on("click", ".board-title a", function (e) {
+            e.preventDefault();
+            moveForm.find("input[name='category']").val(category);
+            moveForm.find("input[name='pageNum']").val(pageNum);
+            moveForm.find("input[name='amount']").val(amount);
+            moveForm.find("input[name='keyword']").val(keyword);
+            moveForm.find("input[name='type']").val(type);
+            moveForm.append("<input type='hidden' name='id' value='" + $(this).attr("href") + "'>");
+            moveForm.submit();
+        });
     });
 
 </script>
-
 <script>
 
-</script>
-
-<script>
-    // $(document).ready(function () {
-    //     var moveForm = $("#moveForm");
-    //
-    //     $('.page-item a').on("click", function (e) {
-    //         e.preventDefault();
-    //         moveForm.find("input[name='pageNum']").val($(this).attr("href"));
-    //         moveForm.find("input[name='id']").remove();
-    //         moveForm.submit();
-    //     });
-    //
-    //     $('.w-50 a').on("click", function (e) {
-    //         e.preventDefault();
-    //         moveForm.attr("action", "/board/read");
-    //         moveForm.find("input[name='id']").val($(this).attr("href"));
-    //         moveForm.submit();
-    //     });
-    // });
 
 </script>
 

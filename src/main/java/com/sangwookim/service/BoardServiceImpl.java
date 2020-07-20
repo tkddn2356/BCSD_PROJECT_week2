@@ -18,9 +18,9 @@ public class BoardServiceImpl implements BoardService {
 
 
     @Override
-    public int write(Board board) {
+    public boolean write(Board board) {
         log.info("write....." + board);
-        return mapper.insert(board);
+        return mapper.insert(board) == 1;
     }
 
 //    @Override

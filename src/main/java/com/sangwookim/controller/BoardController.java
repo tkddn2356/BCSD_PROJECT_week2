@@ -39,12 +39,26 @@ public class BoardController {
     @RequestMapping(value="/write",  method =  RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> write(@RequestBody Board board){
         log.info("Board =  " + board);
-        return service.write(board) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+        return service.write(board) ? new ResponseEntity<>("success", HttpStatus.OK)
                 : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Board> read(@PathVariable("id") Long id) {
+        log.info("get = " + id);
+        return new ResponseEntity<>(service.read(id), HttpStatus.OK);
+    }
 
-
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH,
+            consumes = "application/json")
+    public ResponseEntity<String> modify(@RequestBody Board board, @PathVariable("id") Long id) {
+        board.setId(id);
+        log.info("id = " + id);
+        return service.modify(board) ? new ResponseEntity<>("success", HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 //    @RequestMapping(value = "/list", method = RequestMethod.GET)
 //    public String list(@RequestParam("category") String category, Criteria cri, Model model) {

@@ -21,20 +21,6 @@ var replyService = (function () {
         })
     }
 
-    // function getList(param, callback,  error){
-    //     var board_id = param.board_id;
-    //     var page = param.page;
-    //     $.getJSON("/reply/list/"+ board_id +"/" +page,
-    //         function (data) {
-    //         if(callback){
-    //             callback(data);
-    //         }
-    //     }).fail(function (xhr, status, err) {
-    //         if(error){
-    //             error();
-    //         }
-    //     });
-    // }
 
     function getList(param, callback, error) {
         var board_id = param.board_id;

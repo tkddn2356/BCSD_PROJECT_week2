@@ -18,10 +18,10 @@ public class BoardViewController {
 
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(@RequestParam("category") String category, Criteria cri, Model model) {
+    public String list(@RequestParam("category") String category, Criteria criteria, Model model) {
         //cri의 기본생성자 실행됨
         model.addAttribute("category", category);
-        model.addAttribute("criteria", cri);
+        model.addAttribute("criteria", criteria);
         return "board/list";
     }
 
@@ -30,38 +30,25 @@ public class BoardViewController {
         model.addAttribute("category", category);
         return "board/write";
     }
-//
-//    @RequestMapping(value = "/write", method = RequestMethod.POST)
-//    public String write_pro(Board board, RedirectAttributes rttr) {
-//        log.info("write: " + board);
-//        service.write(board);
-//        rttr.addAttribute("category", board.getCategory());
-//        return "redirect:/board/list";
-//    }
-//
-////    @RequestMapping(value = "/read", method = RequestMethod.GET)
-////    public String read(@RequestParam("id") Long id, Model model) {
-////        model.addAttribute("board", service.read(id));
-////        return "board/read";
-////    }
-//
-//    @RequestMapping(value = "/read", method = RequestMethod.GET)
-//    public String read(@RequestParam("category")String category, @RequestParam("id") Long id, Criteria cri, Model model) {
-//        log.info("/read");
-//        model.addAttribute("category", category);
-//        model.addAttribute("board", service.read(id));
-//        model.addAttribute("cri", cri);
-//        return "board/read";
-//    }
-//
-//    @RequestMapping(value = "/modify", method = RequestMethod.GET)
-//    public String modify(@RequestParam("category")String category, @RequestParam("id") Long id, Criteria cri, Model model) {
-//        log.info("/modify");
-//        model.addAttribute("category", category);
-//        model.addAttribute("board", service.read(id));
-//        model.addAttribute("cri", cri);
-//        return "board/modify";
-//    }
+
+
+    @RequestMapping(value = "/read", method = RequestMethod.GET)
+    public String read(@RequestParam("category")String category, @RequestParam("id") Long id, Criteria criteria, Model model) {
+        log.info("/read");
+        model.addAttribute("category", category);
+        model.addAttribute("id", id);
+        model.addAttribute("criteria", criteria);
+        return "board/read";
+    }
+
+    @RequestMapping(value = "/modify", method = RequestMethod.GET)
+    public String modify(@RequestParam("category")String category, @RequestParam("id") Long id, Criteria criteria, Model model) {
+        log.info("/modify");
+        model.addAttribute("category", category);
+        model.addAttribute("id", id);
+        model.addAttribute("criteria", criteria);
+        return "board/modify";
+    }
 //
 //    @RequestMapping(value = "/modify", method = RequestMethod.POST)
 //    public String modify(Board board, Criteria cri, RedirectAttributes rttr) {
