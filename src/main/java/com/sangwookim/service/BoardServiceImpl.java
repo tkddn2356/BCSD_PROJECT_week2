@@ -25,7 +25,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public boolean write(Board board) {
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+//        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         log.info("write....." + board);
         return mapper.insert(board) == 1;
     }

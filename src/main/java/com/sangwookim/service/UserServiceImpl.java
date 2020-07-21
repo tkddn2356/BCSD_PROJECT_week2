@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public boolean login(User user, HttpServletRequest request) {
+    public boolean login(User user) {
         HttpSession session = request.getSession(); // request 요청을 받고 세션을 생성함.
         if ( session.getAttribute("loginUser") != null ){
             session.removeAttribute("loginUser");
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
     }// 이전 비밀번호 확인하는거랑 수정하는거랑 합쳤음.
 
     @Override
-    public boolean logout(HttpServletRequest request) {
+    public boolean logout() {
         HttpSession session = request.getSession();
         Object object = session.getAttribute("loginUser");
         if(object != null){
