@@ -38,7 +38,7 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value="/join", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> join(@Validated @RequestBody User user, BindingResult result){
+    public ResponseEntity<String> join(@Valid @RequestBody User user, BindingResult result){
         if(result.hasErrors()) {
             new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -49,13 +49,19 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value="/login", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<String> login(@Validated @RequestBody User user, BindingResult result, HttpServletRequest request){
+    public ResponseEntity<String> login(@Valid @RequestBody User user, BindingResult result, HttpServletRequest request){
         if(result.hasErrors()) {
             new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
         return service.login(user, request) ? new ResponseEntity<>("success!", HttpStatus.OK) :
                 new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+//    @ResponseBody
+//    @RequestMapping(value="/login/{test}", method = RequestMethod.POST, consumes = "application/json")
+//    public ResponseEntity<String> login(@Valid @RequestParame){
+//        return new ResponseEntity<>("success!", HttpStatus.OK);
+//    }
 
     @ResponseBody
     @RequestMapping(value="/logout", method = RequestMethod.GET)

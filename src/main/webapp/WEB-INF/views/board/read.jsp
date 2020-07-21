@@ -86,10 +86,10 @@
                 board_info.find("input[name='title']").val(board.title);
                 board_info.find("#content").val(board.content);
             });
-            showList(1);
+            showReplyList(1);
         }
         var replyUL = $(".reply-list");
-        function showList(page) {
+        function showReplyList(page) {
             replyService.getList({board_id, page}, function (list) {
                 console.log("list: " + list);
                 console.log(list);
@@ -110,14 +110,14 @@
                     str += "</div></li>";
                 }
                 replyUL.html(str);
-                showListPaging();
+                showReplyPaging();
             });
         }
 
         var pageNum = 1;
         var replyPagination = $(".reply-paging");
 
-        function showListPaging() {
+        function showReplyPaging() {
             replyService.getPage({board_id, pageNum}, function (page) {
                 var str = "";
                 str += "<div class='d-flex justify-content-center'>";
@@ -144,7 +144,7 @@
             var targetPage = $(this).attr("href");
             pageNum = targetPage;
             console.log(pageNum);
-            showList(pageNum);
+            showReplyList(pageNum);
         });
 
         var replyForm = $("#replyForm");
@@ -161,7 +161,7 @@
                 alert(result);
                 replyForm.find("textarea[name='content']").val("");
                 replyForm.find("input[name='writer']").val("");
-                showList(1);
+                showReplyList(1);
             });
         });
 
@@ -198,7 +198,7 @@
 
                 $(".reply-cancelBtn").on("click", function (e) {
                     e.preventDefault();
-                    showList(pageNum);
+                    showReplyList(pageNum);
                 });
 
                 $(".reply-modifyBtn").on("click", function (e) {
@@ -213,7 +213,7 @@
 
                     replyService.update(reply, function (result) {
                         alert(result);
-                        showList(pageNum);
+                        showReplyList(pageNum);
                     });
                 });
 
@@ -230,7 +230,7 @@
 
             replyService.remove(id, function (result) {
                 alert(result);
-                showList(pageNum);
+                showReplyList(pageNum);
             });
 
         });
@@ -260,7 +260,7 @@
             var commentRegisterFormId = "commentRegisterForm" + operation;
             $(".comment-cancelBtn").on("click", function (e) {
                 e.preventDefault();
-                showList(pageNum);
+                showReplyList(pageNum);
                 // $('#' + commentRegisterFormId).hide();
             });
 

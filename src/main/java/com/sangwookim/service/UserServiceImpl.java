@@ -22,6 +22,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper mapper;
 
+    @Autowired
+    private HttpServletRequest request;
+
     @Override
     public boolean checkUserId(String id) {
         User checkUser = mapper.getUser(id);

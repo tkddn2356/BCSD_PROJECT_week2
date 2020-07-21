@@ -7,7 +7,10 @@ import com.sangwookim.repository.BoardMapper;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Service
@@ -17,8 +20,12 @@ public class BoardServiceImpl implements BoardService {
     private BoardMapper mapper;
 
 
+
+
+
     @Override
     public boolean write(Board board) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         log.info("write....." + board);
         return mapper.insert(board) == 1;
     }

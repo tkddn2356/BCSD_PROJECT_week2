@@ -62,8 +62,8 @@
         var type = '${criteria.type}';
         var keyword = '${criteria.keyword}';
         var board_tbody = $('.board-tbody');
-        showList();
-        function showList() {
+        showBoardList();
+        function showBoardList() {
             var criteria = {
                 pageNum: pageNum,
                 amount: amount,
@@ -82,12 +82,12 @@
                     str += "</tr>";
                 }
                 board_tbody.html(str);
-                showListPaging();
+                showBoardPaging();
             });
         }
 
         var paging_div = $('.board-paging');
-        function showListPaging() {
+        function showBoardPaging() {
             var criteria = {
                 pageNum: pageNum,
                 amount: amount
@@ -118,7 +118,7 @@
             var targetPage = $(this).attr("href");
             pageNum = targetPage;
             console.log(pageNum);
-            showList();
+            showBoardList();
         });
 
         var searchForm = $("#searchForm");
@@ -128,7 +128,7 @@
             keyword = searchForm.find("input[name='keyword']").val();
             console.log("type = " + type);
             console.log("keyword = " + keyword);
-            showList();
+            showBoardList();
         });
 
         var moveForm = $("#moveForm");
