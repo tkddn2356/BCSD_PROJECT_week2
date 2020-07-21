@@ -14,6 +14,19 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="/resources/css/reply.css">
+
+    <script type="text/javascript" src="/resources/js/user.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.logout-a').on("click", function (e) {
+                e.preventDefault();
+                userService.logout(function (result) {
+                    alert(result);
+                    document.location.href = "/main"
+                });
+            });
+        });
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-dark navbar-dark fixed-top">
@@ -37,7 +50,7 @@
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-            <c:if test="${loginUser.user_login == true}">
+            <c:if test="${loginUser.id != null}">
                 <li class="nav-item">
                     <p3 class="navbar" style="color:white">[${loginUser.name}(${loginUser.id})님 안녕하세요!]</p3>
                 </li>
@@ -48,7 +61,7 @@
                     <a href="/user/modify" class="nav-link">정보수정</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/user/logout" class="nav-link">로그아웃</a>
+                    <a href="#" class="nav-link logout-a">로그아웃</a>
                 </li>
             </c:if>
             <li class="nav-item">
@@ -60,6 +73,7 @@
         </ul>
     </div>
 </nav>
+
 
 
 

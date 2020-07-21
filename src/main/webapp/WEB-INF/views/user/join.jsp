@@ -64,10 +64,9 @@
             }
             userService.join(user, function (result) {
                 alert(result);
+                document.location.href = "/main"
             })
-
         });
-
     });
 </script>
 <script>
@@ -80,23 +79,18 @@
             $(".id-message").html(message)
             return;
         }
-        $.ajax({
-            url: '/user/checkUserId/' + id,
-            type: 'get',
-            dataType: 'text',
-            success: function (result) {
-                console.log(result);
-                if (result == 'true') {
-                    userForm.find("input[name='user_exist']").val('true');
-                    var message = "<p>사용할 수 있는 아이디입니다.</p>";
-                    $(".id-message").html(message)
-                } else {
-                    userForm.find("input[name='user_exist']").val('false');
-                    var message = "<p>사용할 수 없는 아이디입니다.</p>";
-                    $(".id-message").html(message)
-                }
+        userService.checkUserExist(id, function(result){
+            console.log(result);
+            if (result == 'true') {
+                joinForm.find("input[name='user_exist']").val('true');
+                var message = "<p>사용할 수 있는 아이디입니다.</p>";
+                $(".id-message").html(message)
+            } else {
+                joinForm.find("input[name='user_exist']").val('false');
+                var message = "<p>사용할 수 없는 아이디입니다.</p>";
+                $(".id-message").html(message)
             }
-        })
+        });
     }
 </script>
 

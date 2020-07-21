@@ -23,42 +23,30 @@
 
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
-<!--    <bean id="loginInterceptor" class="com.sangwookim.interceptor.LoginInterceptor"/>-->
-<!--    <bean id="checkLoginInterceptor" class="com.sangwookim.interceptor.CheckLoginInterceptor"/>-->
-<!--    <bean id="logoutInterceptor" class="com.sangwookim.interceptor.LogoutInterceptor"/>-->
-<!--    <mvc:interceptors>-->
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/user/login_pro"/>-->
-<!--            <ref bean="loginInterceptor"/>-->
-<!--        </mvc:interceptor>-->
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/board/write"/>-->
-<!--            <mvc:mapping path="/board/modify"/>-->
-<!--            <mvc:mapping path="/board/remove"/>-->
-<!--&lt;!&ndash;            <mvc:mapping path="/board/hit/*"/>&ndash;&gt;-->
-<!--&lt;!&ndash;            <mvc:mapping path="/board/hit_not/*"/>&ndash;&gt;-->
-<!--            <ref bean="checkLoginInterceptor"/>-->
-<!--        </mvc:interceptor>-->
-<!--        <mvc:interceptor>-->
-<!--            <mvc:mapping path="/user/logout"/>-->
-<!--            <ref bean="logoutInterceptor"/>-->
-<!--        </mvc:interceptor>-->
-<!--    </mvc:interceptors>-->
+    <bean id="checkLoginInterceptor" class="com.sangwookim.interceptor.CheckLoginInterceptor"/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/board/write"/>
+            <mvc:mapping path="/board/modify"/>
+            <mvc:mapping path="/board/remove"/>
+            <ref bean="checkLoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
-<!--    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
-<!--        <property name="defaultEncoding" value="UTF-8"/>-->
-<!--        <property name="basenames">-->
-<!--            <list>-->
-<!--                <value>classpath:user_error_message</value>-->
-<!--            </list>-->
-<!--        </property>-->
-<!--    </bean>-->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="basenames">
+            <list>
+                <value>classpath:user_error_message</value>
+            </list>
+        </property>
+    </bean>
 
-<!--    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">-->
-<!--        <constructor-arg>-->
-<!--            <ref local="messageSource"/>-->
-<!--        </constructor-arg>-->
-<!--    </bean>-->
+    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
+        <constructor-arg>
+            <ref local="messageSource"/>
+        </constructor-arg>
+    </bean>
 
 
 </beans>

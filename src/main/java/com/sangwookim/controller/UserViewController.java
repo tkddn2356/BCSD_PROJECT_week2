@@ -28,15 +28,9 @@ public class UserViewController {
         return "user/login";
     }
 
-
     @RequestMapping(value="/modify", method = RequestMethod.GET)
     public String modify(){
         return "user/modify";
     }
 
-
-    @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public String logout(){
-        return "/main";
-    }
 }
