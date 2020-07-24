@@ -9,7 +9,15 @@ public class Reply {
     private String writer;
     private Timestamp created_at;
     private Timestamp updated_at;
+    private String user_id;
 
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
 
     public Long getId() {
         return id;

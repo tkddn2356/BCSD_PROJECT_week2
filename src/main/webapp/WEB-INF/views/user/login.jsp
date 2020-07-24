@@ -27,6 +27,9 @@
                             <input type="password" name="password" class="form-control"/>
                         </div>
                         <div class="form-group text-right">
+                            <label style="float:left">
+                                <input type="checkbox" name="remember_me"> 로그인유지
+                            </label>
                             <button class="btn btn-primary login-btn">로그인</button>
                             <button class="btn btn-primary join-btn">회원가입</button>
                         </div>
@@ -45,7 +48,8 @@
             e.preventDefault();
             var loginInfo = {
                 id: loginForm.find("input[name='id']").val(),
-                password: loginForm.find("input[name='password']").val()
+                password: loginForm.find("input[name='password']").val(),
+                remember_me: ($('input:checkbox[name="remember_me"]').is(":checked") ==  true)
             }
             userService.login(loginInfo, function (result) {
                 alert(result);

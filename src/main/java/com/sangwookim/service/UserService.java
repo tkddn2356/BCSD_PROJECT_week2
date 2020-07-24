@@ -9,9 +9,14 @@ public interface UserService {
     public boolean addUser(User user);
     public boolean login(User user);
 //    public boolean login(User user, HttpServletRequest request);
-    public User getLoginUser(String id);
+//    public User getLoginUser(String id);
     public boolean modify(User user);
     public boolean logout();
 //    public boolean logout(HttpServletRequest request);
+
+
+//    public boolean checkPassword(User user);
+
+    public int keepLogin(String id, String remember_id);
 
 }

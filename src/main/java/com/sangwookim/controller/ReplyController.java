@@ -24,7 +24,7 @@ public class ReplyController {
     @RequestMapping(value="/write",  method =  RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> write(@RequestBody Reply reply){
         log.info("Reply =  " + reply);
-        return service.register(reply) == 1 ? new ResponseEntity<>("success", HttpStatus.OK)
+        return service.register(reply) ? new ResponseEntity<>("success", HttpStatus.OK)
                 : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
@@ -47,7 +47,7 @@ public class ReplyController {
     @RequestMapping(value = "/{id}", method=RequestMethod.DELETE)
     public ResponseEntity<String> remove(@PathVariable("id") Long id) {
         log.info("remove = " + id);
-        return service.remove(id) == 1
+        return service.remove(id)
                 ? new ResponseEntity<>("success", HttpStatus.OK)
                 : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -59,7 +59,7 @@ public class ReplyController {
         reply.setId(id);
         log.info("id = " + id);
         log.info("modify = " + reply);
-        return service.modify(reply) == 1
+        return service.modify(reply)
                 ? new ResponseEntity<>("success", HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
     }

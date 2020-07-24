@@ -1,5 +1,6 @@
 package com.sangwookim.domain;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
@@ -21,19 +22,29 @@ public class User {
     @Pattern(regexp = "[a-zA-Z0-9,!,@,#,$,%,^,&,*,?,_,~]*")
     private String password_confirm;
 
-    @Size(min=2, max=4)
-    @Pattern(regexp = "[가-힣]*")
+    @NotNull
     private String name;
 
     private Timestamp created_at;
     private Timestamp updated_at;
 
-    private boolean user_login;
-    private boolean user_exist;
+    private boolean remember_me;
+    private String remember_id;
 
-    public User(){
-        this.user_login = false;
-        this.user_exist = false;
+    public void setRemember_id(String remember_id) {
+        this.remember_id = remember_id;
+    }
+
+    public String getRemember_id() {
+        return remember_id;
+    }
+
+    public void setRemember_me(boolean remember_me) {
+        this.remember_me = remember_me;
+    }
+
+    public boolean isRemember_me() {
+        return remember_me;
     }
 
     public void setPassword_prev(String password_prev) {
@@ -44,21 +55,6 @@ public class User {
         return password_prev;
     }
 
-    public boolean isUser_exist() {
-        return user_exist;
-    }
-
-    public void setUser_exist(boolean user_exist) {
-        this.user_exist = user_exist;
-    }
-
-    public boolean isUser_login() {
-        return user_login;
-    }
-
-    public void setUser_login(boolean user_login) {
-        this.user_login = user_login;
-    }
 
     public String getId() {
         return id;

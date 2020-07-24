@@ -14,17 +14,18 @@ public interface BoardService {
 //    public BoardVO read(Long id);
     public Board read(Long id);
     public boolean modify(Board board);
+//    public boolean remove(Long id);
     public boolean remove(Long id);
     public int getBoardTotal(String category);
 
     public Paging getBoardPage(Criteria cri, String category);
 
 
-    public int getHitTotal(Long id);
-    public int getHit_notTotal(Long id);
-
-    public void updateHit(Long id);
-    public void updateHit_not(Long id);
+//    public int getHitTotal(Long id);
+//    public int getHit_notTotal(Long id);
+//
+//    public void updateHit(Long id);
+//    public void updateHit_not(Long id);
 
 
 }

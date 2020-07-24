@@ -6,10 +6,10 @@ import com.sangwookim.domain.Reply;
 import java.util.List;
 
 public interface ReplyService {
-    public int register(Reply reply);
+    public boolean register(Reply reply);
     public Reply read(Long id);
-    public int modify(Reply reply);
-    public int remove(Long id);
+    public boolean modify(Reply reply);
+    public boolean remove(Long id);
 //    public List<Reply> getList(Criteria cri, Long board_id);
     public List<Reply> getList(int page, Long board_id);
     public int getTotalReply(Long board_id);

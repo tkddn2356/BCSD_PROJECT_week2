@@ -15,8 +15,8 @@ public class Board {
 
     private int reply_count;
 
-    private int hit;
-    private int hit_not;
+//    private int hit;
+//    private int hit_not;
 
     private String user_id;
 
@@ -28,21 +28,21 @@ public class Board {
         return user_id;
     }
 
-    public void setHit(int hit) {
-        this.hit = hit;
-    }
-
-    public void setHit_not(int hit_not) {
-        this.hit_not = hit_not;
-    }
-
-    public int getHit() {
-        return hit;
-    }
-
-    public int getHit_not() {
-        return hit_not;
-    }
+//    public void setHit(int hit) {
+//        this.hit = hit;
+//    }
+//
+//    public void setHit_not(int hit_not) {
+//        this.hit_not = hit_not;
+//    }
+//
+//    public int getHit() {
+//        return hit;
+//    }
+//
+//    public int getHit_not() {
+//        return hit_not;
+//    }
 
     public void setReply_count(int reply_count) {
         this.reply_count = reply_count;

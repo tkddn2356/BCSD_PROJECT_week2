@@ -29,9 +29,13 @@
     </select>
 
 
-    <insert id="insert">
-		insert into board_table (category, title, content, writer)
-		values(#{category}, #{title}, #{content}, #{writer})
+<!--    <insert id="insert">-->
+<!--		insert into board_table (category, title, content, writer)-->
+<!--		values(#{category}, #{title}, #{content}, #{writer})-->
+<!--	</insert>-->
+	<insert id="insert">
+		insert into board_table (category, title, content, writer, user_id)
+		values(#{category}, #{title}, #{content}, #{writer}, #{user_id})
 	</insert>
 
     <!--	<insert id="insertSelectKey">-->

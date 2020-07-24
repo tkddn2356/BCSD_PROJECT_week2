@@ -12,7 +12,7 @@
                     <div id="insertForm">
                         <div class="form-group">
                             <label>작성자</label>
-                            <input type="text" name="writer" class="form-control"/>
+                            <input type="text" name="writer" class="form-control" value="${loginUser.name}" readonly="readonly"/>
                         </div>
                         <div class="form-group">
                             <label>제목</label>
@@ -40,16 +40,20 @@
     $(document).ready(function () {
         var category = '${category}';
         var insertForm = $("#insertForm");
+        var user_id = '${loginUser.id}';
         $('.submit-btn').on("click", function(e){
             var board ={
                 category: category,
                 writer: insertForm.find("input[name='writer']").val(),
                 title: insertForm.find("input[name='title']").val(),
-                content: insertForm.find("textarea[name='content']").val()
+                content: insertForm.find("textarea[name='content']").val(),
+                user_id: user_id
             }
             boardService.write(board, function(result){
                 alert(result);
                 document.location.href = "/board/list?category=" + category;
+            }, function(){
+                alert("사용자 id와 일치하지 않습니다.");
             });
         });
     });

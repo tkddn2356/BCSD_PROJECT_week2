@@ -76,15 +76,31 @@ var userService = (function () {
             }
         });
     }
-
-
-
+    function modify(user, callback, error) {
+        $.ajax({
+            url: '/user/modify',
+            type: 'patch',
+            data: JSON.stringify(user),
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
+                if(callback){
+                    callback(result);
+                }
+            },
+            error: function (xhr, status, er) {
+                if(error){
+                    error(er);
+                }
+            }
+        });
+    }
 
     return {
         join: join,
         login: login,
         checkUserExist: checkUserExist,
-        logout, logout
+        logout: logout,
+        modify:modify
     };
 
 })();

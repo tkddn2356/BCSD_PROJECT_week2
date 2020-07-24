@@ -13,8 +13,8 @@
     </select>
 
     <insert id="insert">
-        insert into reply_table (board_id, content, writer)
-        values(#{board_id}, #{content}, #{writer})
+        insert into reply_table (board_id, content, writer, user_id)
+        values(#{board_id}, #{content}, #{writer}, #{user_id})
     </insert>
 
     <delete id="delete">

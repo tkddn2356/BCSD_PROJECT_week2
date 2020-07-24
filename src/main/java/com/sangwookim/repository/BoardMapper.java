@@ -13,15 +13,16 @@ public interface BoardMapper {
     public List<Board> getList(@Param("cri")Criteria cri, @Param("category")String category);
     public int insert(Board board);
     public Board read(Long id);
-    public int delete(Long id);
+//    public int delete(Long id);
+    public int delete(Board board);
     public int update(Board board);
     public int getBoardTotal(String category);
     public void updateReplyCount(@Param("id")Long id, @Param("amount")int amount);
 
-    public int getHit(Long id);
-    public int getHit_not(Long id);
-
-    public void updateHit(@Param("id")Long id, @Param("amount")int amount);
-    public void updateHit_not(@Param("id")Long id, @Param("amount")int amount);
+//    public int getHit(Long id);
+//    public int getHit_not(Long id);
+//
+//    public void updateHit(@Param("id")Long id, @Param("amount")int amount);
+//    public void updateHit_not(@Param("id")Long id, @Param("amount")int amount);
 
 }

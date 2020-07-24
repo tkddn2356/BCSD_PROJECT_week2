@@ -76,8 +76,8 @@
                 for (var i = 0, len = list.length; i < len; i++) {
                     str += "<tr>";
                     str += "<td class='text-center d-none d-md-table-cell'>" + list[i].id + "</td>";
-                    str += "<td class='w-50 board-title'><a href='"+ list[i].id +"'>" + list[i].title + "</a></td>";
-                    str += "<td class='text-center d-none d-md-table-cell'>" + list[i].writer + "</td>";
+                    str += "<td class='w-50 board-title'><a href='"+ list[i].id +"'>" + list[i].title + "["+list[i].reply_count+"]"+ "</a></td>";
+                    str += "<td class='text-center d-none d-md-table-cell'>" + list[i].writer+"("+list[i].user_id+")" + "</td>";
                     str += "<td class='text-center d-none d-md-table-cell'>" + boardService.displayTime(list[i].created_at) + "</td>";
                     str += "</tr>";
                 }

@@ -9,8 +9,8 @@
     </select>
 
     <insert id="insert">
-        insert into user_table (id, password, name)
-        values(#{id}, #{password}, #{name})
+        insert into user_table (id, password, name, user_id)
+        values(#{id}, #{password}, #{name}, #{user_id})
     </insert>
 
     <select id="getUser" resultType="com.sangwookim.domain.User">
@@ -22,4 +22,12 @@
         set password=#{password}
         where id = #{id}
     </update>
+
+    <update id="keepLogin">
+        update user_table
+        set remember_id = #{remember_id}
+        where id = #{id}
+    </update>
+
+
 </mapper>

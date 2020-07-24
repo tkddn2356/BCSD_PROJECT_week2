@@ -11,7 +11,7 @@
                     <div id="modifyForm">
                         <div class="form-group">
                             <label>이름</label>
-                            <input type="text" name="writer" class="form-control">
+                            <input type="text" name="writer" class="form-control" readonly="readonly">
                         </div>
                         <div class="form-group">
                             <label>제목</label>
@@ -24,11 +24,12 @@
                         <div class="form-group">
                             <div class="text-right">
                                 <button data-oper='modify' class="btn btn-primary oper-btn">수정</button>
-                                <button data-oper='list' class="btn btn-primary oper-btn">취소</button>
+                                <button data-oper='cancel' class="btn btn-primary oper-btn">취소</button>
                             </div>
                         </div>
                     </div>
-                    <form id="operForm" action="/board/list" method="get">
+                    <form id="operForm" action="/board/read" method="get">
+                        <input type="hidden" name="id" value="${id}">
                         <input type="hidden" name="category" value="${category}">
                         <input type="hidden" name="pageNum" value="${criteria.pageNum}"/>
                         <input type="hidden" name="amount" value="${criteria.amount}"/>
@@ -45,6 +46,7 @@
     $(document).ready(function () {
         var modifyForm = $("#modifyForm");
         var id = ${id};
+        var user_id = '${loginUser.id}';
         showBoard();
 
         function showBoard() {
@@ -61,19 +63,22 @@
             e.preventDefault();
             var operation = $(this).data("oper");
             console.log(operation);
-            if (operation === 'list') {
-                operForm.submit();
+            if (operation === 'cancel') {
+                console.log("cancel 선택됨");
             } else if (operation === 'modify') {
                 var board = {
                     title: modifyForm.find("input[name='title']").val(),
                     writer: modifyForm.find("input[name='writer']").val(),
-                    content: modifyForm.find("textarea[name='content']").val()
-                }
+                    content: modifyForm.find("textarea[name='content']").val(),
+                    user_id: user_id,
+                };
                 boardService.modify(id ,board, function (result) {
                     alert(result);
-                    operForm.submit();
+                }, function(){
+                    alert("사용자 id와 일치하지 않습니다.");
                 });
             }
+            operForm.submit();
         });
     });
 </script>

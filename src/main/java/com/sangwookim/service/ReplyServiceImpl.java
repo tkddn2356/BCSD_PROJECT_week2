@@ -1,8 +1,6 @@
 package com.sangwookim.service;
 
-import com.sangwookim.domain.Paging;
-import com.sangwookim.domain.Criteria;
-import com.sangwookim.domain.Reply;
+import com.sangwookim.domain.*;
 import com.sangwookim.repository.BoardMapper;
 import com.sangwookim.repository.ReplyMapper;
 import lombok.extern.log4j.Log4j;
@@ -10,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
+@Transactional
 @Service
 @Log4j
 public class ReplyServiceImpl implements ReplyService{
@@ -22,12 +23,20 @@ public class ReplyServiceImpl implements ReplyService{
     @Autowired
     private BoardMapper boardMapper;
 
-    @Transactional
+    @Autowired
+    private HttpServletRequest request;
+
+
     @Override
-    public int register(Reply reply) {
+    public boolean register(Reply reply) {
+        HttpSession session = request.getSession();
+        User loginUser = (User)session.getAttribute("loginUser");
         log.info("register......" + reply);
-        boardMapper.updateReplyCount(reply.getBoard_id(), 1);
-        return mapper.insert(reply);
+        if(reply.getUser_id().equals(loginUser.getId()) && (mapper.insert(reply) == 1) ){
+            boardMapper.updateReplyCount(reply.getBoard_id(), 1);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -37,18 +46,27 @@ public class ReplyServiceImpl implements ReplyService{
     }
 
     @Override
-    public int modify(Reply reply) {
+    public boolean modify(Reply reply) {
+        HttpSession session = request.getSession();
+        User loginUser = (User)session.getAttribute("loginUser");
         log.info("modify......" + reply);
-        return mapper.update(reply);
+        if(reply.getUser_id().equals(loginUser.getId()) && (mapper.update(reply) == 1) ){
+            return true;
+        }
+        return false;
     }
 
-    @Transactional
     @Override
-    public int remove(Long id) {
-        log.info("remove......" + id);
+    public boolean remove(Long id) {
+        HttpSession session = request.getSession();
+        User loginUser = (User)session.getAttribute("loginUser");
         Reply reply = mapper.read(id);
-        boardMapper.updateReplyCount(reply.getBoard_id(), -1);
-        return mapper.delete(id);
+        log.info("remove......" + reply);
+        if(reply.getUser_id().equals(loginUser.getId()) && (mapper.delete(id) == 1) ){
+            boardMapper.updateReplyCount(reply.getBoard_id(), -1);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -63,13 +81,6 @@ public class ReplyServiceImpl implements ReplyService{
         return mapper.getTotalReply(board_id);
     }
 
-//
-//    @Override
-//    public ReplyPage getListPaging(Criteria cri, Long board_id) {
-//        return new ReplyPage(
-//                mapper.getTotalReply(board_id),
-//                mapper.getListPaging(cri, board_id));
-//    }
 
     @Override
     public Paging getReplyPage(int page, Long board_id) {

@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label>내용</label>
-                            <textarea name="content" id="content "class="form-control" rows="10" style="resize:none"
+                            <textarea name="content" class="form-control" rows="10" style="resize:none"
                                       readonly="readonly"></textarea>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                             <form id="replyForm" action="#" method="post">
                                 <div class="form-group">
                                     <input type="text" name="writer" class="form-control reply-writer"
-                                           placeholder="작성자"/>
+                                          value="${loginUser.name}" readonly="readonly"/>
                                     <textarea name="content" class="form-control reply-content" rows="4"></textarea>
                                 </div>
                                 <div class="form-group">
@@ -79,12 +79,13 @@
     $(document).ready(function () {
         var board_info = $('.board-info');
         var board_id = ${id};
+        var user_id = '${loginUser.id}';
         showBoard();
         function showBoard() {
             boardService.read(board_id, function (board) {
                 board_info.find("input[name='writer']").val(board.writer);
                 board_info.find("input[name='title']").val(board.title);
-                board_info.find("#content").val(board.content);
+                board_info.find("textarea[name='content']").val(board.content);
             });
             showReplyList(1);
         }
@@ -154,13 +155,13 @@
             var reply = {
                 content: replyForm.find("textarea[name='content']").val(),
                 writer: replyForm.find("input[name='writer']").val(),
-                board_id: board_id
+                board_id: board_id,
+                user_id: user_id
             };
             console.log(reply);
             replyService.add(reply, function (result) {
                 alert(result);
                 replyForm.find("textarea[name='content']").val("");
-                replyForm.find("input[name='writer']").val("");
                 showReplyList(1);
             });
         });
@@ -205,9 +206,8 @@
                     e.preventDefault();
                     var reply = {
                         content: replyModifyForm.find("textarea").val(),
-                        writer: replyModifyForm.find("input[name='writer']").val(),
-                        board_id: board_id,
-                        id: id
+                        id: id,
+                        user_id: user_id
                     };
                     console.log(reply);
 
@@ -227,7 +227,6 @@
             var replyId = "replyId" + operation;
             console.log(replyId);
             var id = $('#' + replyId).data("id");
-
             replyService.remove(id, function (result) {
                 alert(result);
                 showReplyList(pageNum);
@@ -266,13 +265,6 @@
 
         });
 
-    });
-
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        console.log("operForm");
         var operForm = $("#operForm");
         $('.oper-btn').on("click", function (e) {
             e.preventDefault();
@@ -284,10 +276,20 @@
             } else if (operation === 'modify') {
                 operForm.attr("action", "/board/modify");
             } else if (operation === 'remove') {
-                operForm.attr("action", "/board/remove").attr("method", "post");
+                operForm.attr("action", "/board/list");
+                operForm.find("input[name='id']").remove();
+                boardService.remove(board_id, function (result) {
+                    alert(result);
+                    // operForm.attr("action", "/board/list");
+                    // operForm.find("input[name='id']").remove();
+                    // 왜 callback에 이걸 넣으면 적용이 안되는거지?
+                }, function(){
+                    alert("사용자 id와 일치하지 않습니다.");
+                });
             }
             operForm.submit();
         });
+
     });
 
 </script>

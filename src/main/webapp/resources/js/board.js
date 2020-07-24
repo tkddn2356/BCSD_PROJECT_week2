@@ -57,7 +57,7 @@ var boardService = (function () {
             },
             error: function (xhr, status, er) {
                 if (error) {
-                    error(er)
+                    error(er);
                 }
             }
         });
@@ -95,6 +95,25 @@ var boardService = (function () {
         });
     }
 
+    function remove(id, callback, error) {
+        console.log("id: " + id);
+        $.ajax({
+            type: 'delete',
+            url: '/board/' + id,
+            contentType: "application/json; charset=utf-8",
+            success: function (result, status, xhr) {
+                if (callback) {
+                    callback(result);
+                }
+            },
+            error: function (xhr, status, er) {
+                if (error) {
+                    error(er);
+                }
+            }
+        });
+    }
+
 
     function displayTime(timeValue) {
         var dateObj = new Date(timeValue),
@@ -112,6 +131,7 @@ var boardService = (function () {
         write:write,
         read:read,
         modify:modify,
+        remove:remove,
         displayTime:displayTime
     };
 

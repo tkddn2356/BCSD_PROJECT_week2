@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @Service
@@ -25,14 +27,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private HttpServletRequest request;
 
+
     @Override
     public boolean checkUserId(String id) {
         User checkUser = mapper.getUser(id);
-        if (checkUser == null){
+        if (checkUser == null) {
             log.info("중복확인완료");
             return true;
-        }
-        else
+        } else
             return false;
     }
 
@@ -43,10 +45,20 @@ public class UserServiceImpl implements UserService {
         return mapper.insert(user) == 1;
     }
 
+
 //    @Override
 //    public boolean login(User user) {
+//        HttpSession session = request.getSession(); // request 요청을 받고 세션을 생성함.
+//        if (session.getAttribute("loginUser") != null) {
+//            session.removeAttribute("loginUser");
+//        } // 만약 로그인세션이 이미 존재하고 있었으면 그 로그인세션을 삭제
 //        User userInfo = mapper.getUser(user.getId());
-//        if (userInfo != null && BCrypt.checkpw(user.getPassword(), userInfo.getPassword())) {
+//        if (userInfo != null && BCrypt.checkpw(user.getPassword(), userInfo.getPassword())) { // 데이터베이스상에 있는 비밀번호와 일치하면 실행.
+//            User loginUser = new User();
+//            loginUser.setId(userInfo.getId());
+//            loginUser.setName(userInfo.getName());
+//            session.setAttribute("loginUser", loginUser);
+//            // 비밀번호는 빼고 아이디와 이름만 가진 user객체를 세션에 넣는다. 세션에 회원의 비밀번호는 왠지 넣으면 안될거같아서...
 //            log.info("로그인성공");
 //            return true;
 //        } else
@@ -54,52 +66,50 @@ public class UserServiceImpl implements UserService {
 //    }
 
     @Override
-    public boolean login(User user) {
+    public boolean login(User user, HttpServletResponse response) {
         HttpSession session = request.getSession(); // request 요청을 받고 세션을 생성함.
-        if ( session.getAttribute("loginUser") != null ){
+        if (session.getAttribute("loginUser") != null) {
             session.removeAttribute("loginUser");
         } // 만약 로그인세션이 이미 존재하고 있었으면 그 로그인세션을 삭제
-
-        User userInfo = mapper.getUser(user.getId()); // bcrpyt된 비밀번호와 비교하기 위해 데이터베이스에서 정보를 가져온다.
-       if (userInfo != null && BCrypt.checkpw(user.getPassword(), userInfo.getPassword())) {
+        User userInfo = mapper.getUser(user.getId());
+        if (userInfo != null && BCrypt.checkpw(user.getPassword(), userInfo.getPassword())) { // 데이터베이스상에 있는 비밀번호와 일치하면 실행.
             User loginUser = new User();
             loginUser.setId(userInfo.getId());
             loginUser.setName(userInfo.getName());
             session.setAttribute("loginUser", loginUser);
-            // 비밀번호는 빼고 아이디와 이름만 가진 user객체를 세션에 넣는다.
+            // 비밀번호는 빼고 아이디와 이름만 가진 user객체를 세션에 넣는다. 세션에 회원의 비밀번호는 왠지 넣으면 안될거같아서...
+            if(user.isRemember_me()){
+                String hashedId = BCrypt.hashpw(user.getId(), BCrypt.gensalt());
+                Cookie rememberCookie = new Cookie("remember_me", hashedId);
+                rememberCookie.setPath("/"); // 웹어플리케이션의 모든 URL 범위에서 전송
+                rememberCookie.setMaxAge(20*60); // 20분
+                response.addCookie(rememberCookie);
+                mapper.keepLogin(user.getId(), hashedId); // 유저의 remember_id에 hashedId를 업데이트한다
+            }
             log.info("로그인성공");
             return true;
         } else
             return false;
     }
 
-    @Override
-    public User getLoginUser(String id) {
-        User userInfo = mapper.getUser(id);
-        User loginUser = new User();
-        loginUser.setId(userInfo.getId());
-        loginUser.setName(userInfo.getName());
-        loginUser.setUser_login(true);
-        return loginUser;
-    }
 
     @Override
     public boolean modify(User user) {
         User userInfo = mapper.getUser(user.getId());
-        if (BCrypt.checkpw(user.getPassword_prev(), userInfo.getPassword())) {
+        if (userInfo != null && BCrypt.checkpw(user.getPassword_prev(), userInfo.getPassword())) { // 만약 데이터베이스에 있는 유저정보와 일치하면 실행
             String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
             user.setPassword(hashedPassword);
             mapper.update(user);
             return true;
         } else
             return false;
-    }// 이전 비밀번호 확인하는거랑 수정하는거랑 합쳤음.
+    }
 
     @Override
     public boolean logout() {
         HttpSession session = request.getSession();
         Object object = session.getAttribute("loginUser");
-        if(object != null){
+        if (object != null) {
             session.removeAttribute("loginUser");
             session.invalidate();
             log.info("로그아웃 성공");
@@ -107,6 +117,24 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    @Override
+    public int keepLogin(String id, String remember_id) {
+        log.info("keepLogin....");
+        return mapper.keepLogin(id, remember_id);
+    }
+
+//    @Override
+//    public boolean checkPassword(User user) {
+//        User userInfo = mapper.getUser(user.getId());
+//        log.info("checkPasword...");
+//        if (userInfo != null && BCrypt.checkpw(user.getPassword(), userInfo.getPassword())) {
+//            return true;
+//        } else
+//            return false;
+//    }
+
+
 
 
 }
