@@ -13,6 +13,15 @@ public class Message {
     private String content;
     private Timestamp created_at;
     private Timestamp updated_at;
+    private String checked;
+
+    public String getChecked() {
+        return checked;
+    }
+
+    public void setChecked(String checked) {
+        this.checked = checked;
+    }
 
     public Long getId() {
         return id;

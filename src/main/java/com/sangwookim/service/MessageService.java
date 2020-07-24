@@ -10,6 +10,7 @@ public interface MessageService {
 //    public List<Message> getSendList(String send_id);
 //    public List<Message> getReceiveList(String recipient_id);
     public List<Message> getList(String mode, String user_id);
+    public Message read(Long id);
     public void write(Message message);
     public boolean modify(Message message);
     public boolean remove(Long id);

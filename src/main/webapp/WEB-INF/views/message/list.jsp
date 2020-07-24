@@ -30,28 +30,11 @@
                         </c:choose>
                     </th>
                     <th class="text-center d-none d-md-table-cell">등록일</th>
+                    <th class="text-center d-none d-md-table-cell">읽음</th>
                 </tr>
                 </thead>
-                <tbody>
-                <c:forEach var='message' items="${list}">
-                    <tr>
-                        <td class="text-center d-none d-md-table-cell">${message.id}</td>
-                        <td class="w-50">${message.title}</td>
-                        <td class="text-center d-none d-md-table-cell">
-                            <c:choose>
-                                <c:when test="${mode == 'send'}">
-                                    ${message.recipient_id}
-                                </c:when>
-                                <c:when test="${mode == 'receive'}">
-                                    ${message.sender_id}
-                                </c:when>
-                            </c:choose>
-                        </td>
-                        <td class="text-center d-none d-md-table-cell">
-                            <fmt:formatDate pattern="yyyy-MM-dd" value="${message.created_at}"/>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <tbody class="message_tbody">
+<%--                showMessageList()--%>
                 </tbody>
             </table>
             <div class="text-right">
@@ -63,5 +46,49 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="/resources/js/message.js"></script>
+<script>
+    $(document).ready(function () {
+        console.log("Ready");
+        var mode = '${mode}';
+        var user_id = '${loginUser.id}';
+        var message_tbody = $('.message_tbody');
+        var id =
+        showMessageList();
+        function showMessageList() {
+            messageService.getList(mode, user_id, function (list) {
+                console.log("mode = " + mode);
+                var str = "";
+                for (var i = 0, len = list.length; i < len; i++) {
+                    str += "<tr>";
+                    str += "<td class='text-center d-none d-md-table-cell'>" + list[i].id + "</td>";
+                    str += "<td class='w-50 message-title'><a href='"+ list[i].id +"'>" + list[i].title + "</a></td>";
+                    if(mode === 'send'){
+                        str += "<td class='text-center d-none d-md-table-cell'>" + list[i].recipient_id + "</td>";
+                    }
+                    else if(mode === 'receive'){
+                        str += "<td class='text-center d-none d-md-table-cell'>" + list[i].sender_id + "</td>";
+                    }
+                    str += "<td class='text-center d-none d-md-table-cell'>" + messageService.displayTime(list[i].created_at) + "</td>";
+                    if(list[i].checked === 'false'){
+                        str += "<td class='text-center d-none d-md-table-cell'>" + "안읽음" + "</td>";
+                    }
+                    else if(list[i].checked === 'true'){
+                        str += "<td class='text-center d-none d-md-table-cell'>" + "읽음" + "</td>";
+                    }
+                    str += "</tr>";
+                }
+                message_tbody.html(str);
+            });
+        }
+
+        $(document).on("click", ".message-title a", function (e) {
+            e.preventDefault();
+            document.location.href = "/message/read?mode=" + mode+"&id="+ $(this).attr("href");
+        });
+    });
+
+</script>
 
 <%@include file="../includes/footer.jsp" %>
