@@ -11,6 +11,10 @@
         select * from message_table where recipient_id = #{user_id}
     </select>
 
+    <select id="read" resultType="com.sangwookim.domain.Message">
+		select * from message_table  where id = #{id}
+	</select>
+
     <insert id="insert">
         insert into message_table (sender_id, recipient_id, title, content)
         values(#{sender_id}, #{recipient_id}, #{title}, #{content})
@@ -24,6 +28,12 @@
 		update message_table
 		set title= #{title},
 		content=#{content}
+		where id = #{id}
+	</update>
+
+    <update id="check">
+		update message_table
+		set checked= 'true'
 		where id = #{id}
 	</update>
 </mapper>

@@ -46,6 +46,14 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
+    public Message read(Long id) {
+        log.info("read....");
+        mapper.check(id);
+        log.info("읽음 체크");
+        return mapper.read(id);
+    }
+
+    @Override
     public void write(Message message) {
         log.info("message write" + message);
         mapper.insert(message);

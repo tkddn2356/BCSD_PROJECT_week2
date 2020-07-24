@@ -1,14 +1,18 @@
 package com.sangwookim.controller;
 
+import com.sangwookim.domain.Board;
 import com.sangwookim.domain.Criteria;
+import com.sangwookim.domain.Message;
 import com.sangwookim.service.MessageService;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @Log4j
@@ -18,21 +22,24 @@ public class MessageController {
     @Autowired
     private MessageService service;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public String list(@RequestParam("mode") String mode, @RequestParam("user_id")String user_id, Model model) {
-        model.addAttribute("mode", mode);
-        model.addAttribute("list", service.getList(mode, user_id));
+    @ResponseBody
+    @RequestMapping(value ="/list/{mode}/{user_id}", method= RequestMethod.GET, consumes = "application/json")
+    public ResponseEntity<List<Message>> getList(@PathVariable("mode")String mode, @PathVariable("user_id") String user_id){
         log.info("mode = " + mode);
         log.info("user_id = " + user_id);
-        log.info("list" + service.getList(mode, user_id));
-        return "message/list";
+        return new ResponseEntity<>(service.getList(mode, user_id), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/write", method = RequestMethod.GET)
-    public String write(@RequestParam("mode") String mode, Model model) {
-        model.addAttribute("mode", mode);
-        return "message/write";
+    @ResponseBody
+    @RequestMapping(value = "/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Message> read(@PathVariable("id") Long id){
+        log.info("id = " + id);
+        return new ResponseEntity<>(service.read(id), HttpStatus.OK);
     }
+
+
+
+
 
 
 }
