@@ -24,17 +24,12 @@
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <bean id="checkLoginInterceptor" class="com.sangwookim.interceptor.CheckLoginInterceptor"/>
-    <bean id="rememberMeInterceptor" class="com.sangwookim.interceptor.RememberMeInterceptor"/>
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/board/write/*"/>
             <mvc:mapping path="/board/modify/*"/>
             <mvc:mapping path="/board/remove/*"/>
             <ref bean="checkLoginInterceptor"/>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <ref bean="rememberMeInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

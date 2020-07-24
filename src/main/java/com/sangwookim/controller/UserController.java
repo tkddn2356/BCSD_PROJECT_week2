@@ -56,19 +56,8 @@ public class UserController {
         if(result.hasErrors()) {
             new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        if(service.login(user)){
-            if(user.isRemember_me()){
-                String hashedId = BCrypt.hashpw(user.getId(), BCrypt.gensalt());
-                Cookie rememberCookie = new Cookie("remember_me", hashedId);
-                rememberCookie.setPath("/"); // 웹어플리케이션의 모든 URL 범위에서 전송
-                rememberCookie.setMaxAge(20*60); // 20분
-                response.addCookie(rememberCookie);
-                service.keepLogin(user.getId(), hashedId); // 유저의 remember_id에 hashedId를 업데이트한다
-            }
-            return new ResponseEntity<>("success!", HttpStatus.OK);
-        }
-        else
-            return new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+        return service.login(user) ? new ResponseEntity<>("success!", HttpStatus.OK) :
+                new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 
