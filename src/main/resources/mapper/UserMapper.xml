@@ -29,5 +29,9 @@
         where id = #{id}
     </update>
 
+    <select id="getUserByRememberMe" resultType="com.sangwookim.domain.User">
+        select id, password from user_table where remember_id = #{remember_id}
+    </select>
+
 
 </mapper>

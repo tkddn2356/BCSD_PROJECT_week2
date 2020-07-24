@@ -72,10 +72,17 @@ public class UserController {
     }
 
 
+//    @ResponseBody
+//    @RequestMapping(value="/logout", method = RequestMethod.GET)
+//    public ResponseEntity<String> logout(){
+//        return service.logout() ? new ResponseEntity<>("success!", HttpStatus.OK) :
+//                new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
+
     @ResponseBody
     @RequestMapping(value="/logout", method = RequestMethod.GET)
-    public ResponseEntity<String> logout(){
-        return service.logout() ? new ResponseEntity<>("success!", HttpStatus.OK) :
+    public ResponseEntity<String> logout(HttpServletResponse response){
+        return service.logout(response) ? new ResponseEntity<>("success!", HttpStatus.OK) :
                 new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

@@ -13,4 +13,5 @@ public interface UserMapper {
     public User getUser(String id);
     public int update(User user);
     public int keepLogin(@Param("id")String id, @Param("remember_id")String remember_id);
+    public User getUserByRememberMe(String remember_id);
 }

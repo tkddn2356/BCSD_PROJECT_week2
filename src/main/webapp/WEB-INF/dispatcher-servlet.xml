@@ -33,25 +33,25 @@
             <ref bean="checkLoginInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
-            <mvc:mapping path="/**"/>
+            <mvc:mapping path="/"/>
             <ref bean="rememberMeInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
-        <property name="defaultEncoding" value="UTF-8"/>
-        <property name="basenames">
-            <list>
-                <value>classpath:user_error_message</value>
-            </list>
-        </property>
-    </bean>
+<!--    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">-->
+<!--        <property name="defaultEncoding" value="UTF-8"/>-->
+<!--        <property name="basenames">-->
+<!--            <list>-->
+<!--                <value>classpath:user_error_message</value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
 
-    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">
-        <constructor-arg>
-            <ref local="messageSource"/>
-        </constructor-arg>
-    </bean>
+<!--    <bean id="messageSourceAccessor" class="org.springframework.context.support.MessageSourceAccessor">-->
+<!--        <constructor-arg>-->
+<!--            <ref local="messageSource"/>-->
+<!--        </constructor-arg>-->
+<!--    </bean>-->
 
 
 </beans>
