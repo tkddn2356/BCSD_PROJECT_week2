@@ -37,6 +37,23 @@ public class MessageController {
         return new ResponseEntity<>(service.read(id), HttpStatus.OK);
     }
 
+    @ResponseBody
+    @RequestMapping(value="/write",  method =  RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<String> write(@RequestBody Message message){
+        log.info("message =  " + message);
+        return service.write(message) ? new ResponseEntity<>("success", HttpStatus.OK)
+                : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ResponseBody
+    @RequestMapping(value="/check/{id}",  method =  RequestMethod.GET)
+    public ResponseEntity<String> check(@PathVariable("id")Long id){
+        log.info("id =  " + id);
+        return service.check(id) ? new ResponseEntity<>("success", HttpStatus.OK)
+                : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
 
 
 

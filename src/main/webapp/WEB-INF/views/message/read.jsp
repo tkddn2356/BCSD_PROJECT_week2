@@ -21,7 +21,11 @@
                     <div class="message-info">
                         <div class="form-group">
                             <label>작성자</label>
-                            <input type="text" name="writer" class="form-control"/>
+                            <input type="text" name="send_id" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label>수신 아이디</label>
+                            <input type="text" name ="recipient_id" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label>작성날짜</label>
@@ -49,14 +53,25 @@
         console.log("Ready");
         var id = '${id}';
         var message_info = $('.message-info');
+        var mode = '${mode}';
         showMessage();
         function showMessage() {
             messageService.read(id, function (message) {
-                message_info.find("input[name='writer']").val(message.sender_id);
+                message_info.find("input[name='send_id']").val(message.sender_id);
+                message_info.find("input[name='recipient_id']").val(message.recipient_id);
                 message_info.find("input[name='created_at']").val(messageService.displayTime(message.created_at));
                 message_info.find("input[name='title']").val(message.title);
                 message_info.find("textarea[name='content']").val(message.content);
             });
+        }
+
+        checkMessage();
+        function checkMessage() {
+            if(mode === 'receive'){
+                messageService.check(id, function (result) {
+                    alert("읽음 체크" + result);
+                })
+            }
         }
     });
 

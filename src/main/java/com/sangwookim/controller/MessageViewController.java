@@ -31,8 +31,7 @@ public class MessageViewController {
     }
 
     @RequestMapping(value = "/write", method = RequestMethod.GET)
-    public String write(@RequestParam("mode") String mode, Model model) {
-        model.addAttribute("mode", mode);
+    public String write() {
         return "message/write";
     }
 

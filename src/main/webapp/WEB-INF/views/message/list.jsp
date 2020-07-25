@@ -38,9 +38,16 @@
                 </tbody>
             </table>
             <div class="text-right">
-                <button data-oper='send' href="#" class="btn btn-primary">수신 쪽지함</button>
-                <button data-oper='receive' href="#" class="btn btn-primary">송신 쪽지함</button>
-                <button data-oper='main' href="#" class="btn btn-primary">되돌아가기</button>
+                <c:choose>
+                    <c:when test="${mode == 'send'}">
+                        <button data-oper='receive'class="btn btn-primary oper-btn">수신 쪽지함</button>
+                    </c:when>
+                    <c:when test="${mode == 'receive'}">
+                        <button data-oper='send' class="btn btn-primary oper-btn">송신 쪽지함</button>
+                    </c:when>
+                </c:choose>
+                <button data-oper='write' class="btn btn-primary oper-btn">쪽지쓰기</button>
+                <button data-oper='main' class="btn btn-primary oper-btn">되돌아가기</button>
             </div>
 
         </div>
@@ -87,7 +94,23 @@
             e.preventDefault();
             document.location.href = "/message/read?mode=" + mode+"&id="+ $(this).attr("href");
         });
+
+        $('.oper-btn').on("click", function (e) {
+            e.preventDefault();
+            var operation = $(this).data("oper");
+            console.log(operation);
+            if (operation === 'send') {
+                document.location.href = "/message/list?mode=send";
+            } else if (operation === 'receive') {
+                document.location.href = "/message/list?mode=receive";
+            } else if (operation === 'main') {
+                document.location.href = "/main";
+            } else if (operation === 'write') {
+                document.location.href = "/message/write";
+            }
+        });
     });
+
 
 </script>
 
