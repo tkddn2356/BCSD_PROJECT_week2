@@ -30,38 +30,88 @@
                         </c:choose>
                     </th>
                     <th class="text-center d-none d-md-table-cell">등록일</th>
+                    <th class="text-center d-none d-md-table-cell">읽음</th>
                 </tr>
                 </thead>
-                <tbody>
-                <c:forEach var='message' items="${list}">
-                    <tr>
-                        <td class="text-center d-none d-md-table-cell">${message.id}</td>
-                        <td class="w-50">${message.title}</td>
-                        <td class="text-center d-none d-md-table-cell">
-                            <c:choose>
-                                <c:when test="${mode == 'send'}">
-                                    ${message.recipient_id}
-                                </c:when>
-                                <c:when test="${mode == 'receive'}">
-                                    ${message.sender_id}
-                                </c:when>
-                            </c:choose>
-                        </td>
-                        <td class="text-center d-none d-md-table-cell">
-                            <fmt:formatDate pattern="yyyy-MM-dd" value="${message.created_at}"/>
-                        </td>
-                    </tr>
-                </c:forEach>
+                <tbody class="message_tbody">
+<%--                showMessageList()--%>
                 </tbody>
             </table>
             <div class="text-right">
-                <button data-oper='send' href="#" class="btn btn-primary">수신 쪽지함</button>
-                <button data-oper='receive' href="#" class="btn btn-primary">송신 쪽지함</button>
-                <button data-oper='main' href="#" class="btn btn-primary">되돌아가기</button>
+                <c:choose>
+                    <c:when test="${mode == 'send'}">
+                        <button data-oper='receive'class="btn btn-primary oper-btn">수신 쪽지함</button>
+                    </c:when>
+                    <c:when test="${mode == 'receive'}">
+                        <button data-oper='send' class="btn btn-primary oper-btn">송신 쪽지함</button>
+                    </c:when>
+                </c:choose>
+                <button data-oper='write' class="btn btn-primary oper-btn">쪽지쓰기</button>
+                <button data-oper='main' class="btn btn-primary oper-btn">되돌아가기</button>
             </div>
 
         </div>
     </div>
 </div>
+
+<script type="text/javascript" src="/resources/js/message.js"></script>
+<script>
+    $(document).ready(function () {
+        console.log("Ready");
+        var mode = '${mode}';
+        var user_id = '${loginUser.id}';
+        var message_tbody = $('.message_tbody');
+        var id =
+        showMessageList();
+        function showMessageList() {
+            messageService.getList(mode, user_id, function (list) {
+                console.log("mode = " + mode);
+                var str = "";
+                for (var i = 0, len = list.length; i < len; i++) {
+                    str += "<tr>";
+                    str += "<td class='text-center d-none d-md-table-cell'>" + list[i].id + "</td>";
+                    str += "<td class='w-50 message-title'><a href='"+ list[i].id +"'>" + list[i].title + "</a></td>";
+                    if(mode === 'send'){
+                        str += "<td class='text-center d-none d-md-table-cell'>" + list[i].recipient_id + "</td>";
+                    }
+                    else if(mode === 'receive'){
+                        str += "<td class='text-center d-none d-md-table-cell'>" + list[i].sender_id + "</td>";
+                    }
+                    str += "<td class='text-center d-none d-md-table-cell'>" + messageService.displayTime(list[i].created_at) + "</td>";
+                    if(list[i].checked === 'false'){
+                        str += "<td class='text-center d-none d-md-table-cell'>" + "안읽음" + "</td>";
+                    }
+                    else if(list[i].checked === 'true'){
+                        str += "<td class='text-center d-none d-md-table-cell'>" + "읽음" + "</td>";
+                    }
+                    str += "</tr>";
+                }
+                message_tbody.html(str);
+            });
+        }
+
+        $(document).on("click", ".message-title a", function (e) {
+            e.preventDefault();
+            document.location.href = "/message/read?mode=" + mode+"&id="+ $(this).attr("href");
+        });
+
+        $('.oper-btn').on("click", function (e) {
+            e.preventDefault();
+            var operation = $(this).data("oper");
+            console.log(operation);
+            if (operation === 'send') {
+                document.location.href = "/message/list?mode=send";
+            } else if (operation === 'receive') {
+                document.location.href = "/message/list?mode=receive";
+            } else if (operation === 'main') {
+                document.location.href = "/main";
+            } else if (operation === 'write') {
+                document.location.href = "/message/write";
+            }
+        });
+    });
+
+
+</script>
 
 <%@include file="../includes/footer.jsp" %>

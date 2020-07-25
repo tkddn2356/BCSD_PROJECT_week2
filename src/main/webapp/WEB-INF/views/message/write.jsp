@@ -10,12 +10,14 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">쪽지보내기</h4>
-                    <form id="insertForm" action="/message/write" method="post">
-                        <input type="hidden" name="mode" value="${mode}"/>
-                        <input type="hidden" name="user_id" value="${loginUser.id}"/>
+                    <div id="insertForm">
                         <div class="form-group">
                             <label>작성자</label>
-                            <input type="text" name="writer" class="form-control" value="${loginUser.name}"/>
+                            <input type="text" name="sender_id" value = "${loginUser.id}" class="form-control" readonly="readonly"/>
+                        </div>
+                        <div class="form-group">
+                            <label>수신 아이디</label>
+                            <input type="text" name ="recipient_id" class="form-control"/>
                         </div>
                         <div class="form-group">
                             <label>제목</label>
@@ -25,38 +27,43 @@
                             <label>내용</label>
                             <textarea name="content" id="content" class="form-control" rows="10"
                                       style="resize:none"></textarea>
-                            <div>
-                                <span id="cntSPAN">0</span>&nbsp;<span>/3000</span>
-                            </div>
                         </div>
                         <div class="form-group">
                             <div class="text-right">
-                                <button type="submit" class="btn btn-primary">완료</button>
-                                <a href="/board/list?category=${category}"
-                                   class="btn btn-primary">목록</a>
+                                <button class="btn btn-primary submit-btn">완료</button>
+                                <a href="/message/list?mode=receive"
+                                   class="btn btn-primary">되돌아가기</a>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-sm-3"></div>
     </div>
 </div>
+<script type="text/javascript" src="/resources/js/message.js"></script>
 <script>
-
-    $(document).on('keyup', '#content', function (e) {
-        var content = $(this).val();
-        $('#cntSPAN').text(getBytes(content));
+    $(document).ready(function () {
+        <%--var mode = '${mode}';--%>
+        var insertForm = $("#insertForm");
+        <%--var user_id = '${loginUser.id}';--%>
+        $('.submit-btn').on("click", function(e){
+            var message ={
+                sender_id: insertForm.find("input[name='sender_id']").val(),
+                recipient_id : insertForm.find("input[name='recipient_id']").val(),
+                title: insertForm.find("input[name='title']").val(),
+                content: insertForm.find("textarea[name='content']").val()
+            }
+            messageService.write(message, function(result){
+                alert(result);
+                document.location.href = "/message/list?mode=send";
+            }, function(){
+                alert("사용자 id와 일치하지 않습니다.");
+            });
+        });
     });
 
-    function getBytes(str) {
-        var cnt = 0;
-        for (var i = 0; i < str.length; i++) {
-            cnt += (str.charCodeAt(i) > 128) ? 2 : 1;
-        }
-        return cnt;
-    }
 
 </script>
 <%@include file="../includes/footer.jsp" %>

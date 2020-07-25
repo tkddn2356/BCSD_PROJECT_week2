@@ -9,8 +9,13 @@ import java.util.List;
 public interface MessageMapper {
     public List<Message> getSendList(String send_id);
     public List<Message> getReceiveList(String recipient_id);
-    public void insert(Message message);
+    public Message read(Long id);
+    public int insert(Message message);
     public int delete(Long id);
     public int update(Message message);
+
+    public int check(Long id);
+
+    public int getUncheckMessage(String recipient_id);
 
 }

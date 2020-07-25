@@ -24,6 +24,7 @@
     <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <bean id="checkLoginInterceptor" class="com.sangwookim.interceptor.CheckLoginInterceptor"/>
+    <bean id="checkUncheckMessageInterceptor" class="com.sangwookim.interceptor.CheckUncheckMessageInterceptor"/>
     <bean id="rememberMeInterceptor" class="com.sangwookim.interceptor.RememberMeInterceptor"/>
     <mvc:interceptors>
         <mvc:interceptor>
@@ -35,6 +36,10 @@
         <mvc:interceptor>
             <mvc:mapping path="/"/>
             <ref bean="rememberMeInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <ref bean="checkUncheckMessageInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

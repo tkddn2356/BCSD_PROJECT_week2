@@ -4,12 +4,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sangwookim.repository.MessageMapper">
     <select id="getSendList" resultType="com.sangwookim.domain.Message">
-        select * from message_table where sender_id = #{user_id}
+        select * from message_table where sender_id = #{user_id} order by id desc
     </select>
 
     <select id="getReceiveList" resultType="com.sangwookim.domain.Message">
-        select * from message_table where recipient_id = #{user_id}
+        select * from message_table where recipient_id = #{user_id} order by id desc
     </select>
+
+    <select id="read" resultType="com.sangwookim.domain.Message">
+		select * from message_table  where id = #{id}
+	</select>
 
     <insert id="insert">
         insert into message_table (sender_id, recipient_id, title, content)
@@ -26,4 +30,14 @@
 		content=#{content}
 		where id = #{id}
 	</update>
+
+    <update id="check">
+		update message_table
+		set checked= 'true'
+		where id = #{id}
+	</update>
+
+    <select id="getUncheckMessage" resultType="int">
+        select count(id) from message_table where recipient_id = #{recipient_id} and checked = 'false';
+    </select>
 </mapper>
