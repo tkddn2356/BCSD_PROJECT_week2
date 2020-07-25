@@ -97,6 +97,7 @@ public class UserServiceImpl implements UserService {
         return mapper.keepLogin(id, remember_id);
     }
 
+
 //    @Override
 //    public boolean checkPassword(User user) {
 //        User userInfo = mapper.getUser(user.getId());

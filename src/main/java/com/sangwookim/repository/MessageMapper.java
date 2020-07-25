@@ -16,6 +16,6 @@ public interface MessageMapper {
 
     public int check(Long id);
 
-    public int getUncheckMessage(Long id);
+    public int getUncheckMessage(String recipient_id);
 
 }

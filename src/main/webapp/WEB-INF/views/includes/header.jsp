@@ -55,7 +55,7 @@
                     <p3 class="navbar" style="color:white">[${loginUser.name}(${loginUser.id})님 안녕하세요!]</p3>
                 </li>
                 <li class="nav-item">
-                    <a href="/message/list?mode=receive" class="nav-link">쪽지함</a>
+                    <a href="/message/list?mode=receive" class="nav-link">쪽지함[${uncheckMessage}]</a>
                 </li>
                 <li class="nav-item">
                     <a href="/user/modify" class="nav-link">정보수정</a>

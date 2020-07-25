@@ -38,6 +38,6 @@
 	</update>
 
     <select id="getUncheckMessage" resultType="int">
-        select count(id) from message_table where sender_id = #{sender_id} and checked = 'false';
+        select count(id) from message_table where recipient_id = #{recipient_id} and checked = 'false';
     </select>
 </mapper>

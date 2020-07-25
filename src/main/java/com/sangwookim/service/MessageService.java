@@ -17,6 +17,8 @@ public interface MessageService {
 
     public boolean check(Long id);
 
+    public int getUncheckMessage(String recipient_id);
+
 
 
 }

@@ -62,17 +62,14 @@
                 message_info.find("input[name='created_at']").val(messageService.displayTime(message.created_at));
                 message_info.find("input[name='title']").val(message.title);
                 message_info.find("textarea[name='content']").val(message.content);
+                if(mode ==='receive' && (message.checked === 'false')){
+                    messageService.check(id, function (result) {
+                        alert("읽음 체크" + result);
+                    });
+                }
             });
         }
 
-        checkMessage();
-        function checkMessage() {
-            if(mode === 'receive'){
-                messageService.check(id, function (result) {
-                    alert("읽음 체크" + result);
-                })
-            }
-        }
     });
 
 </script>

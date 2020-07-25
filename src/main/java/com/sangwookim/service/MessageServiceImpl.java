@@ -77,4 +77,9 @@ public class MessageServiceImpl implements MessageService {
         }
         return false;
     }
+
+    @Override
+    public int getUncheckMessage(String recipient_id) {
+        return mapper.getUncheckMessage(recipient_id);
+    }
 }
