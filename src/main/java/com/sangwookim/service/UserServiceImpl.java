@@ -124,6 +124,7 @@ public class UserServiceImpl implements UserService {
             if(rememberCookie != null){
                 rememberCookie.setPath("/");
                 rememberCookie.setMaxAge(0);
+                rememberCookie.setHttpOnly(true); // XSS 방지
                 response.addCookie(rememberCookie);
             }
             return true;
