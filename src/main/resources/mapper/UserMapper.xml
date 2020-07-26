@@ -9,8 +9,8 @@
     </select>
 
     <insert id="insert">
-        insert into user_table (id, password, name, user_id)
-        values(#{id}, #{password}, #{name}, #{user_id})
+        insert into user_table (id, password, name)
+        values(#{id}, #{password}, #{name})
     </insert>
 
     <select id="getUser" resultType="com.sangwookim.domain.User">
