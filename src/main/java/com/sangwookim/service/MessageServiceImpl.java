@@ -23,6 +23,9 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private HttpServletRequest request;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public List<Message> getList(String mode, String user_id) {
         log.info("getList...");
@@ -51,31 +54,39 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public boolean write(Message message) {
         log.info("message write" + message);
-        return mapper.insert(message) == 1;
+        if(userService.checkLoginUser(message.getSender_id()) && (mapper.insert(message) == 1) ){
+            return true;
+        }else
+            return false;
 
     }
 
     @Override
     public boolean modify(Message message) {
         log.info("modify......" + message);
-        return mapper.update(message) == 1;
+        if(userService.checkLoginUser(message.getSender_id()) && (mapper.update(message) == 1) ){
+            return true;
+        }else
+            return false;
     }
 
     @Override
     public boolean remove(Long id) {
         log.info("remove......" + id);
-        return mapper.delete(id) == 1;
+        Message message = mapper.read(id);
+        if(userService.checkLoginUser(message.getSender_id()) && (mapper.delete(id) == 1) ){
+            return true;
+        }else
+            return false;
     }
 
     @Override
     public boolean check(Long id) {
-        HttpSession session = request.getSession();
-        User loginUser = (User)session.getAttribute("loginUser"); // 세션은 object로 받아지기 때문에 user로 형변환함.
         Message message = mapper.read(id);
-        if(message.getRecipient_id().equals(loginUser.getId())){
-            return mapper.check(id) == 1;
-        }
-        return false;
+        if(userService.checkLoginUser(message.getRecipient_id()) && (mapper.check(id) == 1) ){
+            return true;
+        }else
+            return false;
     }
 
     @Override

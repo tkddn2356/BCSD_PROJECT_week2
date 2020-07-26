@@ -28,9 +28,9 @@
     <bean id="rememberMeInterceptor" class="com.sangwookim.interceptor.RememberMeInterceptor"/>
     <mvc:interceptors>
         <mvc:interceptor>
-            <mvc:mapping path="/board/write/*"/>
-            <mvc:mapping path="/board/modify/*"/>
-            <mvc:mapping path="/board/remove/*"/>
+            <mvc:mapping path="/board/write/**"/>
+            <mvc:mapping path="/board/modify/**"/>
+            <mvc:mapping path="/board/remove/**"/>
             <ref bean="checkLoginInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
