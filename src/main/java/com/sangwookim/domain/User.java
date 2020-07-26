@@ -22,7 +22,7 @@ public class User {
     @Pattern(regexp = "[a-zA-Z0-9,!,@,#,$,%,^,&,*,?,_,~]*")
     private String password_confirm;
 
-    @NotNull
+    @Size(min=2, max=5)
     private String name;
 
     private Timestamp created_at;

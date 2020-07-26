@@ -85,7 +85,16 @@ public class UserServiceImpl implements UserService {
             return false;
     }
 
-
+    @Override
+    public boolean checkLoginUser(String id) {
+        HttpSession session = request.getSession();
+        User loginUser = (User)session.getAttribute("loginUser"); // 세션은 object로 받아지기 때문에 user로 형변환함.
+        if(id.equals(loginUser.getId())){
+            // 로그인한 유저의 아이디와 board로 들어오는 id가 같고 remove가 성공적으로 끝났을때만 true
+            return true;
+        }else
+            return false;
+    }
 
 
     @Override
@@ -124,7 +133,6 @@ public class UserServiceImpl implements UserService {
             if(rememberCookie != null){
                 rememberCookie.setPath("/");
                 rememberCookie.setMaxAge(0);
-                rememberCookie.setHttpOnly(true); // XSS 방지
                 response.addCookie(rememberCookie);
             }
             return true;

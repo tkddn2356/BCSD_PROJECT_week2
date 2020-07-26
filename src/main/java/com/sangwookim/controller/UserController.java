@@ -62,6 +62,7 @@ public class UserController {
                 Cookie rememberCookie = new Cookie("remember_me", hashedId);
                 rememberCookie.setPath("/"); // 웹어플리케이션의 모든 URL 범위에서 전송
                 rememberCookie.setMaxAge(20*60); // 20분
+                rememberCookie.setHttpOnly(true); // XSS 방지
                 response.addCookie(rememberCookie);
                 service.keepLogin(user.getId(), hashedId); // 유저의 remember_id에 hashedId를 업데이트한다
             }

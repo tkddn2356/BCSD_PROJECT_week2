@@ -26,5 +26,7 @@ public interface UserService {
 
     public boolean loginBefore(User user);
 
+    public boolean checkLoginUser(String id);
+
 
 }
