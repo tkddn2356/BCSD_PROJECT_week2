@@ -109,6 +109,8 @@
             messageService.remove(id, function (result) {
                 alert(result);
                 showMessageList();
+            }, function(){
+                alert("사용자 id와 일치하지 않습니다.");
             });
         });
 
