@@ -14,7 +14,7 @@ public interface BoardMapper {
     public int insert(Board board);
     public Board read(Long id);
 //    public int delete(Long id);
-    public int delete(Board board);
+    public int delete(Long id);
     public int update(Board board);
     public int getBoardTotal(String category);
     public void updateReplyCount(@Param("id")Long id, @Param("amount")int amount);

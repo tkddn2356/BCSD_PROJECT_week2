@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="text-right">
+                        <div class="text-right btn-div">
                             <button data-oper='modify' class="btn btn-primary oper-btn">수정</button>
                             <button data-oper='remove' class="btn btn-primary oper-btn">삭제</button>
                             <button data-oper='list' class="btn btn-primary oper-btn">목록</button>
@@ -280,9 +280,6 @@
                 operForm.find("input[name='id']").remove();
                 boardService.remove(board_id, function (result) {
                     alert(result);
-                    // operForm.attr("action", "/board/list");
-                    // operForm.find("input[name='id']").remove();
-                    // 왜 callback에 이걸 넣으면 적용이 안되는거지?
                 }, function(){
                     alert("사용자 id와 일치하지 않습니다.");
                 });

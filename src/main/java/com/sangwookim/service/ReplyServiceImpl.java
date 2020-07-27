@@ -45,8 +45,8 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     public boolean modify(Reply reply) {
-        log.info("modify......" + reply);
-        if(userService.checkLoginUser(reply.getUser_id()) && (mapper.update(reply) == 1) ){
+        Reply reply_prev = mapper.read(reply.getId());
+        if(userService.checkLoginUser(reply_prev.getUser_id()) && (mapper.update(reply) == 1) ){
             return true;
         }
         return false;
