@@ -24,7 +24,6 @@
 //                List<ObjectError> list = ((BindingResult) result).getAllErrors();
 //                for(ObjectError e :list){
 //                    log.info(e.getDefaultMessage());
-//                    //디폴트메시지 말고 커스텀한 메시지를 띄울 수 있는 방법 없나요...
 //                }
 //            }
 //        }

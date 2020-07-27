@@ -53,6 +53,25 @@ var messageService = (function () {
         });
     }
 
+    function remove(id, callback, error) {
+        $.ajax({
+            type: 'delete',
+            url: '/message/' + id,
+            contentType: "application/json; charset=utf-8",
+            dataType: 'text',
+            success: function (deleteResult, status, xhr) {
+                if (callback) {
+                    callback(deleteResult);
+                }
+            },
+            error: function (xhr, status, er) {
+                if (error) {
+                    error(er);
+                }
+            }
+        });
+    }
+
     function check(id, callback, error) {
         console.log("check message......")
         $.ajax({
@@ -89,6 +108,7 @@ var messageService = (function () {
         read:read,
         write:write,
         check:check,
+        remove: remove,
         displayTime:displayTime
     };
 

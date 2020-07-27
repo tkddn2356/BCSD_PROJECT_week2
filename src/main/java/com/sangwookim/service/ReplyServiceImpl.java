@@ -24,16 +24,14 @@ public class ReplyServiceImpl implements ReplyService{
     private BoardMapper boardMapper;
 
     @Autowired
-    private HttpServletRequest request;
+    private UserService userService;
 
 
     @Override
     public boolean register(Reply reply) {
-        HttpSession session = request.getSession();
-        User loginUser = (User)session.getAttribute("loginUser");
         log.info("register......" + reply);
-        if(reply.getUser_id().equals(loginUser.getId()) && (mapper.insert(reply) == 1) ){
-            boardMapper.updateReplyCount(reply.getBoard_id(), 1);
+        if(userService.checkLoginUser(reply.getUser_id()) && (mapper.insert(reply) == 1) ){
+            boardMapper.updateReplyCount(reply.getBoard_id(), 1); // 게시글의 총 댓글수 업데이트
             return true;
         }
         return false;
@@ -47,10 +45,8 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     public boolean modify(Reply reply) {
-        HttpSession session = request.getSession();
-        User loginUser = (User)session.getAttribute("loginUser");
         log.info("modify......" + reply);
-        if(reply.getUser_id().equals(loginUser.getId()) && (mapper.update(reply) == 1) ){
+        if(userService.checkLoginUser(reply.getUser_id()) && (mapper.update(reply) == 1) ){
             return true;
         }
         return false;
@@ -58,11 +54,9 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     public boolean remove(Long id) {
-        HttpSession session = request.getSession();
-        User loginUser = (User)session.getAttribute("loginUser");
         Reply reply = mapper.read(id);
         log.info("remove......" + reply);
-        if(reply.getUser_id().equals(loginUser.getId()) && (mapper.delete(id) == 1) ){
+        if(userService.checkLoginUser(reply.getUser_id()) && (mapper.delete(id) == 1) ){
             boardMapper.updateReplyCount(reply.getBoard_id(), -1);
             return true;
         }

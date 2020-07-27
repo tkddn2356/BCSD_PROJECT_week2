@@ -7,19 +7,19 @@ create table board_table(
     user_id varchar(50) not null,
     created_at timestamp default CURRENT_TIMESTAMP(),
     updated_at timestamp default CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-    constraint board_PK primary key(id),
-    constraint user_id_FK  FOREIGN KEY (user_id) REFERENCES user_table(id)
+    reply_count bigint,
+    constraint board_PK primary key(id)
 );
 
 create table reply_table (
   id bigint auto_increment,
   board_id bigint not null,
+  user_id varchar(50) not null,
   content varchar(1000) not null,
   writer varchar(50) not null,
   created_at timestamp default CURRENT_TIMESTAMP(),
   updated_at timestamp default CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
-  constraint reply_PK primary key (id),
-  constraint board_id_FK  FOREIGN KEY (board_id) REFERENCES board_table(id)
+  constraint reply_PK primary key (id)
 );
 
 create table user_table (
@@ -28,6 +28,7 @@ password varchar(100) not null,
 name varchar(100) not null,
 created_at timestamp default CURRENT_TIMESTAMP(),
 updated_at timestamp default CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
+remember_id varchar(100),
 constraint user_PK primary key (id)
 );
 
@@ -39,9 +40,7 @@ create table message_table (
  content varchar(3000) not null,
  created_at timestamp default CURRENT_TIMESTAMP(),
  updated_at timestamp default CURRENT_TIMESTAMP() ON UPDATE CURRENT_TIMESTAMP(),
- constraint message_PK primary key (id),
- constraint recipient_id_FK  FOREIGN KEY (recipient_id) REFERENCES user_table(id),
- constraint sender_id_FK  FOREIGN KEY (sender_id) REFERENCES user_table(id)
+ constraint message_PK primary key (id)
 );
 
 

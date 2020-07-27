@@ -21,24 +21,30 @@
                     <div class="message-info">
                         <div class="form-group">
                             <label>작성자</label>
-                            <input type="text" name="send_id" class="form-control"/>
+                            <input type="text" name="send_id" class="form-control" readonly="readonly"/>
                         </div>
                         <div class="form-group">
                             <label>수신 아이디</label>
-                            <input type="text" name ="recipient_id" class="form-control"/>
+                            <input type="text" name ="recipient_id" class="form-control" readonly="readonly"/>
                         </div>
                         <div class="form-group">
                             <label>작성날짜</label>
-                            <input type="text" name="created_at" class="form-control"/>
+                            <input type="text" name="created_at" class="form-control" readonly="readonly"/>
                         </div>
                         <div class="form-group">
                             <label>제목</label>
-                            <input type="text" name="title" class="form-control"/>
+                            <input type="text" name="title" class="form-control" readonly="readonly"/>
                         </div>
                         <div class="form-group">
                             <label>내용</label>
                             <textarea name="content" class="form-control" rows="10"
-                                      style="resize:none"></textarea>
+                                      style="resize:none" readonly="readonly"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="text-right">
+                                <a href="javascript:history.back();"
+                                   class="btn btn-primary">뒤로가기</a>
+                            </div>
                         </div>
                     </div>
                 </div>

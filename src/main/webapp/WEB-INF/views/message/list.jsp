@@ -31,6 +31,9 @@
                     </th>
                     <th class="text-center d-none d-md-table-cell">등록일</th>
                     <th class="text-center d-none d-md-table-cell">읽음</th>
+                    <c:if test="${mode == 'send'}">
+                        <th class="text-center d-none d-md-table-cell">삭제</th>
+                    </c:if>
                 </tr>
                 </thead>
                 <tbody class="message_tbody">
@@ -61,7 +64,6 @@
         var mode = '${mode}';
         var user_id = '${loginUser.id}';
         var message_tbody = $('.message_tbody');
-        var id =
         showMessageList();
         function showMessageList() {
             messageService.getList(mode, user_id, function (list) {
@@ -80,9 +82,12 @@
                     str += "<td class='text-center d-none d-md-table-cell'>" + messageService.displayTime(list[i].created_at) + "</td>";
                     if(list[i].checked === 'false'){
                         str += "<td class='text-center d-none d-md-table-cell'>" + "안읽음" + "</td>";
+                        str += "<td class='text-center d-none d-md-table-cell'><a class='btn btn-primary btn-sm remove-btn' href='"+ list[i].id +"'>"+
+                        "삭제" + "</a></td>";
                     }
                     else if(list[i].checked === 'true'){
                         str += "<td class='text-center d-none d-md-table-cell'>" + "읽음" + "</td>";
+                        str += "<td class='text-center d-none d-md-table-cell'>" + " " + "</td>";
                     }
                     str += "</tr>";
                 }
@@ -90,10 +95,27 @@
             });
         }
 
+
         $(document).on("click", ".message-title a", function (e) {
             e.preventDefault();
             document.location.href = "/message/read?mode=" + mode+"&id="+ $(this).attr("href");
         });
+
+
+        $(document).on("click", ".remove-btn", function (e) {
+            e.preventDefault();
+            var id = $(this).attr("href");
+            console.log(id);
+            messageService.remove(id, function (result) {
+                alert(result);
+                showMessageList();
+            }, function(){
+                alert("사용자 id와 일치하지 않습니다.");
+            });
+        });
+
+
+
 
         $('.oper-btn').on("click", function (e) {
             e.preventDefault();
@@ -110,7 +132,6 @@
             }
         });
     });
-
 
 </script>
 
