@@ -20,9 +20,10 @@
         values(#{sender_id}, #{recipient_id}, #{title}, #{content})
     </insert>
 
-    <select id="delete">
-       delete from message_table where id = ${id}
-    </select>
+    <delete id="delete">
+       delete from message_table where id = #{id}
+    </delete>
+
 
     <update id="update">
 		update message_table

@@ -58,6 +58,7 @@ var messageService = (function () {
             type: 'delete',
             url: '/message/' + id,
             contentType: "application/json; charset=utf-8",
+            dataType: 'text',
             success: function (deleteResult, status, xhr) {
                 if (callback) {
                     callback(deleteResult);

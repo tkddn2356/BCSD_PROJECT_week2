@@ -74,6 +74,7 @@ public class MessageServiceImpl implements MessageService {
     public boolean remove(Long id) {
         log.info("remove......" + id);
         Message message = mapper.read(id);
+        log.info("remove... " + userService.checkLoginUser(message.getSender_id()));
         if(userService.checkLoginUser(message.getSender_id()) && (mapper.delete(id) == 1) ){
             return true;
         }else

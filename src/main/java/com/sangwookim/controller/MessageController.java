@@ -46,8 +46,7 @@ public class MessageController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE,
-            consumes = "application/json")
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = "application/json")
     public ResponseEntity<String> delete(@PathVariable("id") Long id) {
         return service.remove(id) ? new ResponseEntity<>("success", HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
