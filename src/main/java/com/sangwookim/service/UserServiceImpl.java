@@ -112,18 +112,6 @@ public class UserServiceImpl implements UserService {
             return false;
     }
 
-//    @Override
-//    public boolean logout() {
-//        HttpSession session = request.getSession();
-//        Object object = session.getAttribute("loginUser");
-//        if (object != null) {
-//            session.removeAttribute("loginUser");
-//            session.invalidate();
-//            log.info("로그아웃 성공");
-//            return true;
-//        }
-//        return false;
-//    }
     @Override
     public boolean logout(HttpServletResponse response) {
         HttpSession session = request.getSession();
