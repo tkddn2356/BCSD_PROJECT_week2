@@ -16,7 +16,7 @@ public interface BoardService {
     public boolean modify(Board board);
 //    public boolean remove(Long id);
     public boolean remove(Long id);
-    public int getBoardTotal(String category);
+//    public int getBoardTotal(String category);
 
     public Paging getBoardPage(Criteria cri, String category);
 

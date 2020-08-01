@@ -68,8 +68,20 @@
 		where id = #{id}
 	</update>
 
-    <select id="getBoardTotal" resultType="int">
+
+	<select id="getBoardTotal" resultType="int">
 		select count(*) from board_table where category = #{category}
+		<choose>
+			<when test="cri.type == 'TC'.toString()">
+				and (title like concat('%',#{cri.keyword},'%') or content like concat_ws('%',#{cri.keyword},'%'))
+			</when>
+			<when test="cri.type == 'T'.toString()">
+				and title like concat('%',#{cri.keyword},'%')
+			</when>
+			<when test="cri.type == 'W'.toString()">
+				and writer like concat('%',#{cri.keyword},'%')
+			</when>
+		</choose>
 	</select>
 
 	<update id="updateReplyCount">

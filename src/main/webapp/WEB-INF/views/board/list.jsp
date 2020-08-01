@@ -90,7 +90,9 @@
         function showBoardPaging() {
             var criteria = {
                 pageNum: pageNum,
-                amount: amount
+                amount: amount,
+                type: type,
+                keyword: keyword
             };
             boardService.getPaging(category, criteria, function (paging) {
                 var str = "";
@@ -128,6 +130,7 @@
             keyword = searchForm.find("input[name='keyword']").val();
             console.log("type = " + type);
             console.log("keyword = " + keyword);
+            pageNum = 1;
             showBoardList();
         });
 

@@ -72,16 +72,17 @@ public class BoardServiceImpl implements BoardService {
             return false;
     }
 
-    @Override
-    public int getBoardTotal(String category)
-    {
-        log.info("getBoardTotal....");
-        return mapper.getBoardTotal(category);
-    }
+//    @Override
+//    public int getBoardTotal(String category)
+//    {
+//        log.info("getBoardTotal....");
+//        return mapper.getBoardTotal(category);
+//    }
 
     @Override
     public Paging getBoardPage(Criteria cri, String category) {
-        int total = mapper.getBoardTotal(category);
+        int total = mapper.getBoardTotal(cri, category);
+        log.info(total);
         return new Paging(cri, total);
     }
 
