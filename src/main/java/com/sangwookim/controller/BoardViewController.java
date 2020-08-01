@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/board/")
 public class BoardViewController {
 
-    @Autowired
-    private BoardService service;
-
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public String list(@RequestParam("category") String category, Criteria criteria, Model model) {
