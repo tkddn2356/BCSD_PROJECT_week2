@@ -34,6 +34,7 @@
     <bean id="checkLoginInterceptor" class="com.sangwookim.interceptor.CheckLoginInterceptor"/>
     <bean id="checkUncheckMessageInterceptor" class="com.sangwookim.interceptor.CheckUncheckMessageInterceptor"/>
     <bean id="rememberMeInterceptor" class="com.sangwookim.interceptor.RememberMeInterceptor"/>
+    <bean id="checkWriterInterceptor" class="com.sangwookim.interceptor.CheckWriterIntercepter"/>
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/board/write/**"/>
@@ -48,6 +49,11 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <ref bean="checkUncheckMessageInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/board/modify/**"/>
+            <mvc:mapping path="/board/remove/**"/>
+            <ref bean="checkWriterInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
