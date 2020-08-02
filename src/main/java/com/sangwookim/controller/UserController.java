@@ -47,7 +47,7 @@ public class UserController {
         }
         return service.addUser(user) ? new ResponseEntity<>("success!", HttpStatus.OK) :
                 new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+}
 
 
     @ResponseBody
