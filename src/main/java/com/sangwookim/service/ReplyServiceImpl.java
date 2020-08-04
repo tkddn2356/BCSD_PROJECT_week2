@@ -81,6 +81,6 @@ public class ReplyServiceImpl implements ReplyService{
         Criteria cri = new Criteria(page, 10);
         int total = mapper.getTotalReply(board_id);
         return new Paging(cri, total);
-    }
+    }// 페이징 정보에 대해 가져온다.
 
 }
