@@ -1,8 +1,5 @@
 package com.sangwookim.domain;
 
-import javafx.util.converter.TimeStringConverter;
-
-import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Message {
