@@ -20,13 +20,13 @@ public class CheckWriterIntercepter extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         HttpSession session = request.getSession();
-        log.info("작성자체크인터셉터 실행");
-        String str1 = request.getParameter("id");
-        Long board_id = Long.parseLong(str1);
-        if (session.getAttribute("loginUser") != null) { // 로그인이 되어있다면
-            User loginUser = (User)session.getAttribute("loginUser"); // 로그인유저 세션을 가져옴
-            if(!(loginUser.getId().equals(service.read(board_id).getUser_id()))){
-                response.sendRedirect("/");
+                log.info("작성자체크인터셉터 실행");
+                String str1 = request.getParameter("id");
+                Long board_id = Long.parseLong(str1);
+                if (session.getAttribute("loginUser") != null) { // 로그인이 되어있다면
+                    User loginUser = (User)session.getAttribute("loginUser"); // 로그인유저 세션을 가져옴
+                    if(!(loginUser.getId().equals(service.read(board_id).getUser_id()))){
+                        response.sendRedirect("/");
             }
         }
         return true;

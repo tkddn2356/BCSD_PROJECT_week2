@@ -35,6 +35,7 @@
     <bean id="checkUncheckMessageInterceptor" class="com.sangwookim.interceptor.CheckUncheckMessageInterceptor"/>
     <bean id="rememberMeInterceptor" class="com.sangwookim.interceptor.RememberMeInterceptor"/>
     <bean id="checkWriterInterceptor" class="com.sangwookim.interceptor.CheckWriterIntercepter"/>
+
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/board/write/**"/>
@@ -71,6 +72,11 @@
 <!--            <ref local="messageSource"/>-->
 <!--        </constructor-arg>-->
 <!--    </bean>-->
+
+
+    <bean class="com.sangwookim.swagger.SwaggerConfig"/>
+    <mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"></mvc:resources>
+    <mvc:resources location="classpath:/META-INF/resources/webjars/"  mapping="/webjars/**"></mvc:resources>
 
 
 </beans>

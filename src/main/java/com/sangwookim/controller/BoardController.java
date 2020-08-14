@@ -5,6 +5,10 @@ import com.sangwookim.domain.Criteria;
 import com.sangwookim.domain.Paging;
 import com.sangwookim.domain.Reply;
 import com.sangwookim.service.BoardService;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +26,13 @@ public class BoardController {
     @Autowired
     private BoardService service;
 
+    @ApiOperation(value="게시글 조회", notes= "카테고리에 맞는 게시글을 불러옵니다.")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "category", value = "게시판 카테고리", required = true, dataType = "string", paramType = "path", defaultValue = ""),
+//    })
     @ResponseBody
     @RequestMapping(value ="/list/{category}", method= RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<List<Board>> getList(@PathVariable("category")String category, @RequestBody Criteria cri){
+    public ResponseEntity<List<Board>> getList(@ApiParam(name="category", value="게시판 카테고리!", required = true)@PathVariable("category")String category, @RequestBody Criteria cri){
         log.info("category = " + category);
         return new ResponseEntity<>(service.getList(cri, category), HttpStatus.OK);
     }
