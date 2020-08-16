@@ -5,6 +5,8 @@ import com.sangwookim.domain.Criteria;
 import com.sangwookim.domain.Paging;
 import com.sangwookim.domain.User;
 import com.sangwookim.repository.BoardMapper;
+import com.sangwookim.slack.SlackAttachment;
+import com.sangwookim.slack.SlackNotiSender;
 import lombok.extern.log4j.Log4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,11 +26,20 @@ public class BoardServiceImpl implements BoardService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SlackNotiSender slackNotiSender;
+
     @Override
     public boolean write(Board board) {
         log.info("write....." + board);
         if(userService.checkLoginUser(board.getUser_id()) && (mapper.insert(board) == 1) ){
             // 로그인한 유저의 아이디와 board로 들어오는 id가 같고 insert가 성공적으로 끝났을때만 true
+            SlackAttachment slackAttachment = new SlackAttachment();
+            slackAttachment.setAuthor_name("김상우");
+            slackAttachment.setTitle("Post");
+            slackAttachment.setText(board.getTitle()+"(이)가 등록되었습니다.");
+            slackNotiSender.noticePost(slackAttachment);
+
             return true;
         }
         else

@@ -5,6 +5,8 @@ import com.sangwookim.domain.Criteria;
 import com.sangwookim.domain.Paging;
 import com.sangwookim.domain.Reply;
 import com.sangwookim.service.BoardService;
+import com.sangwookim.slack.SlackAttachment;
+import com.sangwookim.slack.SlackNotiSender;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -25,6 +27,8 @@ public class BoardController {
 
     @Autowired
     private BoardService service;
+
+
 
     @ApiOperation(value="게시글 조회", notes= "카테고리에 맞는 게시글을 불러옵니다.")
 //    @ApiImplicitParams({
@@ -47,6 +51,10 @@ public class BoardController {
     @RequestMapping(value="/write",  method =  RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<String> write(@RequestBody Board board){
         log.info("Board =  " + board);
+
+
+
+
         return service.write(board) ? new ResponseEntity<>("success", HttpStatus.OK)
                 : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }
