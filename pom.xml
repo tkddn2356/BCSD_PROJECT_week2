@@ -22,10 +22,11 @@
         </plugins>
     </build>
 
-
     <properties>
         <org.springframework-version>3.2.18.RELEASE</org.springframework-version>
         <org.slf4j-version>1.6.6</org.slf4j-version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
 <!--    스프링 라이브러리-->
@@ -263,4 +264,7 @@
         </dependency>
 
     </dependencies>
+
+
+
 </project>
