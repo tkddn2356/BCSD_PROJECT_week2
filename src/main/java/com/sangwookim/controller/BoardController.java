@@ -52,9 +52,6 @@ public class BoardController {
     public ResponseEntity<String> write(@RequestBody Board board){
         log.info("Board =  " + board);
 
-
-
-
         return service.write(board) ? new ResponseEntity<>("success", HttpStatus.OK)
                 : new ResponseEntity<>("fail", HttpStatus.INTERNAL_SERVER_ERROR);
     }

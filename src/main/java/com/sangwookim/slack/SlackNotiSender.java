@@ -13,7 +13,7 @@ import java.util.List;
 @Component
 @Log4j
 public class SlackNotiSender {
-    @Value("https://hooks.slack.com/services/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")
+    @Value("https://hooks.slack.com/services/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")
     private String url;
     private RestTemplate restTemplate;
     private SlackParameter slackParameter;
