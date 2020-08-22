@@ -3,7 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@include file="includes/header.jsp" %>
 
+
 <img src="https://static-sample.tkddn2356.com/hello/frog.png" style="text-align: center"/>
+<p>테스트</p>
 
 <script>
     var result = '<c:out value="${result}"/>'
