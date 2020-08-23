@@ -5,7 +5,6 @@
 
 
 <img src="https://static-sample.tkddn2356.com/hello/frog.png" style="text-align: center"/>
-<p>테스트</p>
 
 <script>
     var result = '<c:out value="${result}"/>'

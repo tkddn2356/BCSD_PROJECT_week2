@@ -23,6 +23,7 @@
     <context:component-scan base-package="com.sangwookim.aop"/>
     <context:component-scan base-package="com.sangwookim.slack"/>
 
+
     <!-- Controller의 메서드에서 반환하는 문자열 앞 뒤에 붙힐 경로 정보를 셋팅한다. -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
@@ -78,6 +79,20 @@
     <bean class="com.sangwookim.swagger.SwaggerConfig"/>
     <mvc:resources location="classpath:/META-INF/resources/" mapping="swagger-ui.html"></mvc:resources>
     <mvc:resources location="classpath:/META-INF/resources/webjars/"  mapping="/webjars/**"></mvc:resources>
+
+
+    <bean id="sesMailSender" class="com.sangwookim.util.SesMailSender"/>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>text/html; charset=UTF-8</value>
+                    </list>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
 
 </beans>
