@@ -6,6 +6,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import java.lang.annotation.Annotation;
 
 @Aspect
 @Component
@@ -30,6 +33,22 @@ public class BoardAOP {
             log.info("에러발생");
         } finally {
             log.info("Around 실행완료!!");
+        }
+        int index = -1;
+        Annotation[][] annotationMatrix = methodSignature.getMethod().getParameterAnnotations();
+
+        for(Annotation[] annotations : annotationMatrix){
+            index++;
+            for(Annotation annotation : annotations){
+                if(!(annotation instanceof RequestBody)){ //RequestBody어노테이션이 있으면 Xss체크
+                    System.out.println("!!!"+ annotation.annotationType().getCanonicalName());
+                    continue;
+                }
+                System.out.println("@@@"+ annotation.annotationType().getCanonicalName());
+//                proceedingJoinPoint.getArgs()[index] = xssCheck(proceedingJoinPoint.getArgs()[index]); // 들어온 파라미터 확인
+
+                return joinPoint.proceed(joinPoint.getArgs());
+            }
         }
         return result;
     }
