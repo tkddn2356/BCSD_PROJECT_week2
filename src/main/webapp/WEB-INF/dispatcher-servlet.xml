@@ -17,11 +17,11 @@
 
     <aop:aspectj-autoproxy/>
 
+    <context:component-scan base-package="com.sangwookim.aop"/>
+    <context:component-scan base-package="com.sangwookim.slack"/>
     <context:component-scan base-package="com.sangwookim.controller"/>
     <context:component-scan base-package="com.sangwookim.repository"/>
     <context:component-scan base-package="com.sangwookim.service"/>
-    <context:component-scan base-package="com.sangwookim.aop"/>
-    <context:component-scan base-package="com.sangwookim.slack"/>
 
 
     <!-- Controller의 메서드에서 반환하는 문자열 앞 뒤에 붙힐 경로 정보를 셋팅한다. -->

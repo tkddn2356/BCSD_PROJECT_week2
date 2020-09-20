@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 @Aspect
@@ -12,6 +13,13 @@ import org.springframework.stereotype.Component;
 public class BoardAOP {
     @Around("execution(* com.sangwookim.service.BoardService.getList(..))")
     public Object getListAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        log.info("methodSignature =" +  methodSignature);
+        log.info("getMethod =" + methodSignature.getMethod());
+        for(Object args : joinPoint.getArgs()) // 파라미터로 뭐가 들어왔는지 확인
+        {
+            log.info("args = " + args);
+        }
         Object result = null;
         try{
             log.info("Around-pre-getList");

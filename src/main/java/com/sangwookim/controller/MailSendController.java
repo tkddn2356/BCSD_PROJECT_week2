@@ -15,9 +15,10 @@ public class MailSendController {
 
     @RequestMapping(value = "/send", method = RequestMethod.GET)
     public ResponseEntity<String> send() {
-        mailSender.sendMail("TestSender@tkddn2356.com", "tkddn2356@gmail.com", "테스트용 메일입니다", "<h1>안녕하세요</h1>"
-                + "<p>말하자면 테스트라는 것입니다. <a href='https://aws.amazon.com/ses/'>"
-                + "블로그</a> 링크입니다 많이 찾아와주세요");
+        mailSender.sendMail("TestSender@tkddn2356.com", "tkddn2356@gmail.com", "테스트용 메일",
+                "<h1>안녕하세요</h1>"
+                + "<p>SES테스트중입니다.<a href='http://tkddn2356.com'>"
+                + "김상우홈페이지</a></p>");
         return new ResponseEntity<>("Success", HttpStatus.OK);
     }
 }
