@@ -32,7 +32,7 @@ public class BoardAOP {
             throwable.printStackTrace();
             log.info("에러발생");
         } finally {
-            log.info("Around 실행완료!!");
+            log.info("Around 실행완료!!!!");
         }
         int index = -1;
         Annotation[][] annotationMatrix = methodSignature.getMethod().getParameterAnnotations();
