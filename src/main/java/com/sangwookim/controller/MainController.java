@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.annotation.Resource;
 
 @Controller
 public class MainController {
@@ -20,4 +19,6 @@ public class MainController {
     public String main(){
         return "main";
     }
+
+
 }
